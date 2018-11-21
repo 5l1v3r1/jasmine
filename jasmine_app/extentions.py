@@ -25,6 +25,7 @@ class Flask_env():
         # read file
         # parse the str
         # write in config
+        print('load .env file from parent dir')
         with open(env_file) as opener:
             lines = opener.readlines()
             for line in lines:
@@ -42,4 +43,3 @@ class Flask_env():
                 if value.isdigit():
                     value = int(value)
                 self.app.config[key] = value
-        print(self.app.config)
