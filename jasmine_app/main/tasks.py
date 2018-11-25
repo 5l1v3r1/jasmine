@@ -1,13 +1,11 @@
-import time
 from jasmine_app.extentions import celery
 
 
 @celery.task
-def add(a, b):
-    print(a + b)
-    return a + b
+def a():
+    print('this is a')
 
 
 @celery.task
-def sout():
-    print('报时: ', time.time())
+def add(num1, num2):
+    print('add: ', num1 + num2)

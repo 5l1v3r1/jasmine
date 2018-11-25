@@ -1,11 +1,8 @@
-# encoding=utf-8
-# @Time    : 2018/9/24 下午1:35
-from flask import render_template, Response, url_for, Blueprint, current_app
+import os
+from flask import render_template, url_for, Blueprint, current_app
 from jasmine_app.main.tasks import add
 
 main = Blueprint('main', __name__)
-
-import os
 
 
 @main.context_processor
@@ -17,8 +14,7 @@ def dated_url_for(endpoint, **values):
     if endpoint == 'static':
         filename = values.get('filename', None)
         if filename:
-            file_path = os.path.join(current_app.root_path,
-                                     endpoint, filename)
+            file_path = os.path.join(current_app.root_path, endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
 

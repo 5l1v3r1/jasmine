@@ -1,13 +1,14 @@
-# @Time    : 2018/9/24 下午1:37
-
 from celery import Celery
 import os
+import redis
+from flask_bootstrap import Bootstrap
+
+bootstrap = Bootstrap()
 
 celery = Celery(__name__)
 
 
-class Flask_env():
-
+class Flask_env:
     def __init__(self, app=None):
         self.app = app
         if app:
@@ -39,7 +40,33 @@ class Flask_env():
                 config_list = line.split('=')
                 key, value = config_list[0], config_list[1]
                 if self.app.config.get(key):
-                    print('overwrite an exist key : {} {} ---> {}'.format(key, self.app.config[key], value))
+                    print(
+                        'overwrite an exist key : {} {} ---> {}'.format(
+                            key, self.app.config[key], value
+                        )
+                    )
                 if value.isdigit():
                     value = int(value)
                 self.app.config[key] = value
+
+
+flask_env = Flask_env()
+
+
+class RedisCache:
+    def __init__(self, ns='REDIS_'):
+        self.ns = ns
+        self.client = None
+
+    def init_app(self, app):
+        # 找到redis配置文件，加载redis配置
+        opts = app.config.get_namespace(self.ns)
+        # 生成redis客户端
+        self._pool = redis.ConnectionPool(**opts)
+        self._client = redis.StrictRedis(connection_pool=self._pool)
+
+    def __getattr__(self, name):
+        return getattr(self._client, name)
+
+
+redis_cache = RedisCache()
