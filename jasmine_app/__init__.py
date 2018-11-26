@@ -6,12 +6,14 @@ import sentry_sdk
 import os
 
 from flask.cli import FlaskGroup
+from werkzeug.utils import import_string
 import click
 
 
 def create_app(config_name='default'):
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
+    config_1 = import_string('configs.dev_config')
+    app.config.from_object(config_1)
     app.config.from_pyfile('../configs/celery_config.py')
     update_celery(app, celery)
     bootstrap.init_app(app)
