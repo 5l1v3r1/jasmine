@@ -2,6 +2,8 @@ from celery import Celery
 import os
 import redis
 from flask_bootstrap import Bootstrap
+from raven.contrib.flask import Sentry
+from flask.cli import AppGroup
 
 bootstrap = Bootstrap()
 
@@ -70,3 +72,6 @@ class RedisCache:
 
 
 redis_cache = RedisCache()
+sentry = Sentry()
+
+usr_cli = AppGroup('sd')

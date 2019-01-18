@@ -1,3 +1,7 @@
+import os
+import raven
+
+
 class Config:
     DEBUG = True
     CACHE_BACKEND = "Redis"
@@ -17,3 +21,15 @@ class Config:
 
     REDLOCK_TIMEOUT = 10
     REDLOCK_BLOCKING_TIMEOUT = 5
+
+    # SENTRY_CONFIG = {
+    #     "dsn": "",
+    #     "ignore_exceptions":[
+    #         'Http404',
+    #         'django.exceptions.http.Http404',
+    #         'django.exceptions.*',
+    #         ValueError,
+    #     ],
+        # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+
+    # }
