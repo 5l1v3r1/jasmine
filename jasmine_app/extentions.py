@@ -1,9 +1,11 @@
-from celery import Celery
 import os
+
 import redis
+from celery import Celery
+from flask.cli import AppGroup
 from flask_bootstrap import Bootstrap
 from raven.contrib.flask import Sentry
-from flask.cli import AppGroup
+from werkzeug.utils import import_string
 
 bootstrap = Bootstrap()
 
@@ -74,4 +76,19 @@ class RedisCache:
 redis_cache = RedisCache()
 sentry = Sentry()
 
-usr_cli = AppGroup('sd')
+usr_cli = AppGroup('user')
+
+
+# 加载commands文件夹下的commands
+def load_commands():
+    import_string('commands')
+
+    base_dir = os.path.dirname(__file__)
+    commands_dir = os.path.join(os.path.dirname(base_dir), "commands")
+    for file_name in os.listdir(commands_dir):
+        if file_name.endswith('py'):
+            import_name = "commands." + file_name[:-3]
+            import_string(import_name)
+
+
+load_commands()

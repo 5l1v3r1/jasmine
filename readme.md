@@ -19,6 +19,7 @@ CELERY_TASK_PROTOCOL = 1
 
 
 ### 运行worker
+
 celery worker -B -A run_celery.celery --loglevel=info
 
 
@@ -36,8 +37,9 @@ The message has been ignored and discarded.
 from proj.module import foo
 from .module import foo
 
-## flask click
+## 运行
 
-运行flask flask run 安装python-dotenv 然后在.env文件中写入配置，就会自动加载
-
+flask run 
+安装python-dotenv 然后在.env文件中写入配置，就会自动加载
 pip install -e .  安装本地module到当前pip环境
+自定义commands: 在commands文件夹中加入文件 从extension中导入cli 

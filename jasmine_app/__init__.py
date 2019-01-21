@@ -46,6 +46,8 @@ def create_app():
 
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint)
+    # commnands
+    app.cli.add_command(usr_cli)
     return app
 
 
