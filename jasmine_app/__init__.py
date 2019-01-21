@@ -1,11 +1,9 @@
-# @Time    : 2018/9/24 下午1:41
-import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 
+from configs import config
 from jasmine_app.extentions import celery, Flask_env
 from jasmine_app.utils import update_celery
-from configs import config
 
 bootstrap = Bootstrap()
 flask_env = Flask_env()

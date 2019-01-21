@@ -2,6 +2,7 @@
 # @Time    : 2018/9/24 下午1:35
 from flask import render_template, Response, url_for, Blueprint, current_app
 from jasmine_app.main.tasks import add
+import logging
 
 main = Blueprint('main', __name__)
 
@@ -26,4 +27,5 @@ def dated_url_for(endpoint, **values):
 @main.route('/')
 def index():
     add.delay(2, 3)
+    logging.log(level=logging.ERROR, msg='test error')
     return render_template('main/base.html')

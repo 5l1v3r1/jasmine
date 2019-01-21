@@ -16,11 +16,39 @@
 - flask路由管理和view实现api接口
 - flask 每次加载自动刷新js和css文件
 
+## flask-cli
 
-CELERY_TASK_PROTOCOL = 1
+在root目录下加入.env文件 .env文件中加入配置
+不支持配置的有:
+
+支持配置的有:
+- FLASK_DEBUG=True or False
+- FLASK_APP=jasmin_app
+- FLASK_ENV=development
+
 
 
 ### 运行worker
+
+CELERY_TASK_PROTOCOL = 1
 celery worker -B -A run_celery.celery --loglevel=info
 
 
+## 配置sentry
+
+生成sentry key
+
+pip install --upgrade sentry-sdk[flask]==0.5.5
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+sentry_sdk.init(
+    dsn="https://e3c5ddd746d9486d9f0a76b6953d8be2@sentry.io/1327554",
+    integrations=[FlaskIntegration()]
+)
+
+app = Flask(__name__)
+
+## gunicorn运行
+
+gunicorn --bind 0.0.0.0:5001 manage:app

@@ -1,7 +1,8 @@
 # @Time    : 2018/9/24 下午1:37
+import coast
+import os
 
 from celery import Celery
-import os
 
 celery = Celery(__name__)
 
@@ -43,3 +44,7 @@ class Flask_env():
                 if value.isdigit():
                     value = int(value)
                 self.app.config[key] = value
+
+
+class cli():
+    pass
