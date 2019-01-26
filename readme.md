@@ -13,6 +13,7 @@
 - flask Elasticsearch
 - flask路由管理和view实现api接口
 - flask 每次加载自动刷新js和css文件
+- ci/cd 持续发布到 vps
 
 ## flask-cli
 
@@ -68,3 +69,10 @@ app = Flask(__name__)
 ## gunicorn运行
 
 gunicorn --bind 0.0.0.0:5001 manage:app
+
+
+## ci/cd 持续发布
+
+docker build --cache-from jasmine:latest -t jasmine:latest .
+docker tag jasmine:latest fjl2401/jasmine
+docker push fjl2401/jasmine

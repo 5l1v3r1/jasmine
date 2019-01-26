@@ -1,0 +1,19 @@
+stages:
+- test
+- build
+- deploy
+
+test:
+  image: "docker.io/fjl2401/jasmine:latest"
+  stage: test
+  services:
+  - name: mysql:5.6
+    alias: mysql
+  - name: redis:4
+    alias: redis
+  before_script:
+  - python -V
+  script:
+  - flake8 app db jobs tests
+
+
