@@ -6,3 +6,4 @@ Flask-SQLAlchemy
 httpie
 SQLAlchemy
 Flask-Login
+pytest
