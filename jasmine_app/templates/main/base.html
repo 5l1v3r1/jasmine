@@ -8,26 +8,7 @@
     <nav class="navbar navbar-light bg-light">
         <ul class="nav">
             <li><a class="navbar-brand" href="/">首页</a></li>
-            {#            {% if current_user.is_authenticated %}#}
-            {#                <li class="nav-item"><a class="nav-link"#}
-            {#                                        href="{{ url_for('main.user',username=current_user.username) }}">个人主页</a></li>#}
-            {#                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.post_article') }}">写文章</a></li>#}
-            {#                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.messages') }}">查看私信#}
-            {#                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.tasks') }}">任务队列</a></li>#}
-            {#                {% set new_messages = current_user.new_messages() %}#}
-            {#                <span id="message_count" class="badge" style="visibility: {% if new_messages %}#}
-            {#                    visible {% else %} hidden {% endif %}"> {{ new_messages }}</span>#}
-            {#                </a></li>#}
-            {#                <li class="nav-item"><a href="{{ url_for('main.export_posts') }}">导出你的文章</a></li>#}
-            {#            {% endif %}#}
-            {#            {% if current_user.can(Permission.MODERATE_COMMENTS) %}#}
-            {#                <li><a class="nav-link" href="{{ url_for('main.moderate') }}">修改评论</a></li>#}
-            {#            {% endif %}#}
-            {#            {% if current_user.is_authenticated %}#}
-            {#                <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">注销</a></li>#}
-            {#            {% else %}#}
-            {#                <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">登录</a></li>#}
-            {#            {% endif %}#}
+
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
@@ -42,19 +23,17 @@
 
 
 {% block content %}
-
-    <h1 class="h1">hello again</h1>
-    <button id="button_p">click</button>
-    <a id="w3s" href="http://127.0.0.1:5000">百度</a>
-    <p>追加文本</p>
-    <button class="btn-clock">删除P</button>
-
-    <button id="add_css">添加css class</button>
-
-
+    <div class="container">
+        <h1 class="h1" id="hello_h1"></h1>
+    </div>
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        h1 = document.getElementById("hello_h1");
+        h1.innerHTML = "hello jasmine and js"
+    </script>
+
     {{ super() }}
     <script src=" {{ url_for('static',filename='js/hello_jquery.js') }}"></script>
 {% endblock %}

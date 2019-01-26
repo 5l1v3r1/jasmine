@@ -68,7 +68,7 @@ app = Flask(__name__)
 
 ## gunicorn运行
 
-gunicorn --bind 0.0.0.0:5001 manage:app
+gunicorn --bind 0.0.0.0:5001 run:app
 
 
 ## ci/cd 持续发布

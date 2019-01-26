@@ -69,6 +69,7 @@ class RedisCache:
         self._pool = redis.ConnectionPool(**opts)
         self._client = redis.StrictRedis(connection_pool=self._pool)
 
+    def __getattr__(self, name):
         return getattr(self._client, name)
 
 

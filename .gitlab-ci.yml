@@ -19,8 +19,7 @@ test:
   before_script:
   - python -V
   script:
-  - pwd
   - pip install flake8
   - flake8 app db jobs tests
-
+  - pytest -s -x
 
