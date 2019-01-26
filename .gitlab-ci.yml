@@ -21,5 +21,4 @@ test:
   script:
   - pip install flake8 && pip install pytest
   - flake8 app db jobs tests
-  - pytest -s -x
 
