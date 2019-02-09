@@ -20,7 +20,7 @@ cache:
 build_image:
   stage: build_image
   tags:
-  - docker
+  - build_image
   script:
   - docker build ${IMAGE_TAG} -f Dockerfile .
   - docker push ${IMAGE_TAG}
