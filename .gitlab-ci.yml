@@ -1,5 +1,5 @@
 stages:
-- build image
+- build_image
 - test
 - deploy
 
@@ -17,8 +17,8 @@ cache:
   - ${PIP_CACHE_DIR}
 
 
-build image:
-  stage: build image
+build_image:
+  stage: build_image
   tags:
   - build
   script:
