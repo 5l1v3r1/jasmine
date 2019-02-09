@@ -23,7 +23,7 @@ build_image:
   - build_image
   script:
   - docker build -t ${IMAGE_TAG} -f Dockerfile .
-  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker login -u "$REGISTRY_USER" --password "$REGISTRY_PASSWORD"
   - docker push ${IMAGE_TAG}
 
 test:
@@ -40,3 +40,8 @@ test:
   - flake8 app db jobs tests
   - pytest -s -x
 
+deploy:
+  stage: deploy
+#  连接到 ssh服务器 然后 将image替换为新的image 然后docker-compose 重新启动
+  script:
+  - pass
