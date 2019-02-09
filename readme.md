@@ -4,6 +4,7 @@
 因为主要作为学习和实验，所以项目的代码不会太多。学习和理解起来也不会有太大的压力
 
 ## 已经完成或者正在进行的实验
+
 所有的扩展或特性全部基于flask 工厂模式来 create app
 - flask 结合bootstrap
 - flask 结合celery 异步任务队列
@@ -76,3 +77,5 @@ gunicorn --bind 0.0.0.0:5001 run:app
 docker build --cache-from jasmine:latest -t jasmine:latest .
 docker tag jasmine:latest fjl2401/jasmine
 docker push fjl2401/jasmine
+测试阶段时候需要单独列出一个测试镜像?
+因为在服务器上也是通过dockerfile来搞到的，暂时不弄了吧.就build一次
