@@ -22,7 +22,8 @@ build_image:
   tags:
   - build_image
   script:
-  - docker build ${IMAGE_TAG} -f Dockerfile .
+  - docker build -t ${IMAGE_TAG} -f Dockerfile .
+  - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
   - docker push ${IMAGE_TAG}
 
 test:
