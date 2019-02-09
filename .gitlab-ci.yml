@@ -6,7 +6,7 @@ stages:
 variables:
    MYSQL_DATABASE: jasmine
    MYSQL_ROOT_PASSWORD: newpass
-   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip/"
+   PIP_CACHE_DIR: "/root/.cache/pip/"
    IMAGE: fjl2401/${CI_PROJECT_NAME}
 before_script:
 - IMAGE_TAG=${IMAGE}:${CI_COMMIT_SHA:0:8}
@@ -23,7 +23,7 @@ build_image:
   - build_image
   script:
   - docker build -t ${IMAGE_TAG} -f Dockerfile .
-  - docker login -u "$REGISTRY_USER" --password "$REGISTRY_PASSWORD"
+  - docker login -u "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD"
   - docker push ${IMAGE_TAG}
 
 test:
@@ -44,4 +44,5 @@ deploy:
   stage: deploy
 #  连接到 ssh服务器 然后 将image替换为新的image 然后docker-compose 重新启动
   script:
-  - pass
+  - ssh ubuntu@111.231.82.45
+

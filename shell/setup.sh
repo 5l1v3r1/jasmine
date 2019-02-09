@@ -2,7 +2,7 @@
 
 #
 #
-#. /Users/fanjialiang2401/Anacoda/anaconda2/etc/profile.d/conda.sh conda activate hello_flask
+#. /Users/fanjialiang2401/Anacoda/anaconda2/etc/profile.d/conda.sh conda activate jasmine
 #
 #pip -V
 #pip list
@@ -11,7 +11,7 @@
 #sh ./setup_mysql.sh create
 #
 #
-#gunicorn -c gunicorn.py hello_flask:app
+#gunicorn -c gunicorn.py jasmine:app
 setup_mysql.sh start
 
 chmod +x ./boot_python.sh

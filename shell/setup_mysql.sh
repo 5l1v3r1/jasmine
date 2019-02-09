@@ -5,11 +5,11 @@ USER="root"
 PASS="newpass"
 HOST='localhost'
 PORT=3305
-DB_NAME="hello_flask"
+DB_NAME="jasmine"
 
 CURRENT_DIR=$(pwd)
 BASE_DIR=($CURRENT_DIR)
-SQL_DIR="$BASE_DIR/hello_flask.sql"
+SQL_DIR="$BASE_DIR/jasmine.sql"
 
 #CurDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -122,9 +122,9 @@ EOF
 dump_sql(){
 createdb $DB_NAME
 
-#docker exec -i mysql mysql -h $HOST -p$PASS -uroot  hello_flask < $SQL_DIR
+#docker exec -i mysql mysql -h $HOST -p$PASS -uroot  jasmine < $SQL_DIR
 
-#docker exec -i mysql mysql -uroot -h 127.0.0.1 hello_flask < $SQL_DIR
+#docker exec -i mysql mysql -uroot -h 127.0.0.1 jasmine < $SQL_DIR
 
 mysql -u$USER -p$PASS -h $HOST -P $PORT  $DB_NAME < $SQL_DIR
 if [[ $? == 0 ]]; then

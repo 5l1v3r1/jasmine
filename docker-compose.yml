@@ -1,0 +1,40 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx/
+    ports:
+      - 80:80
+    depends_on:
+      - jasmine
+  db:
+    image: mysql:5.7
+    volumes:
+      - /data/mysql/data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: newpass
+      MYSQL_DATABASE: jasmine
+  redis:
+    image: redis:4.0
+    volumes:
+      - /data/redis/data:/data
+    restart: always
+  jasmine:
+    depends_on:
+      - db
+      - redis
+    #     image: jasmine:latest
+    build: .
+#    ports:
+#      - 5000:5000
+    restart: always
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+volumes:
+  db_data:
+#    redis_data:

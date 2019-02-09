@@ -15,7 +15,7 @@ if [ $? -eq 0 ];then
 kill  `lsof -i:5000 | awk '{print $2}'`
 fi
 
-gunicorn -c ../gunicorn.py --chdir ../ -D hello_flask:app
+gunicorn -c ../gunicorn.py --chdir ../ -D jasmine:app
 
 
 if [ $? -eq 0 ]; then

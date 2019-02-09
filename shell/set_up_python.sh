@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-env_name=hello_flask
+env_name=jasmine
 
 
 if [ "$(uname)"=="Darwin" ];
