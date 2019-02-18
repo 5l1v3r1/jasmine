@@ -19,3 +19,4 @@ blinker
 oss2
 pyflakes
 black
+flake8
