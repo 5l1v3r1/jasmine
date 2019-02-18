@@ -12,4 +12,4 @@ class HelloView(MethodView):
 
 @api.route("/hello_world")
 def index():
-    return Response("this is index")
+    return Response("hello world!")
