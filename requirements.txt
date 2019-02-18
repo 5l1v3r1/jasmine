@@ -3,7 +3,17 @@ Flask-HTTPAuth
 Flask-Migrate
 Flask-Script
 Flask-SQLAlchemy
+flask-env
 httpie
 SQLAlchemy
 Flask-Login
 pytest
+beautifulsoup4
+fake-useragent
+gunicorn
+raven
+redis
+celery
+flask_bootstrap
+blinker
+oss2

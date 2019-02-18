@@ -1,5 +1,4 @@
 stages:
-- build_image
 - test
 - deploy
 
@@ -16,18 +15,17 @@ cache:
   paths:
   - ${PIP_CACHE_DIR}
 
-
-build_image:
-  stage: build_image
-  tags:
-  - build_image
-  script:
-  - docker build -t ${IMAGE_TAG} -f Dockerfile .
-  - docker login -u "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD"
-  - docker push ${IMAGE_TAG}
+# 直接deploy的时候build
+#build_image:
+#  stage: build_image
+#  tags:
+#  - build_image
+#  script:
+#  - docker build -t ${IMAGE_TAG} -f Dockerfile .
+#  - docker login -u "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD"
+#  - docker push ${IMAGE_TAG}
 
 test:
-  image: $IMAGE_TAG
   stage: test
   services:
   - name: mysql:5.6
@@ -37,12 +35,13 @@ test:
   before_script:
   - python -V
   script:
+  - pip install -U -r requirements/requirements.txt
   - flake8 app db jobs tests
   - pytest -s -x
 
 deploy:
   stage: deploy
-#  连接到 ssh服务器 然后 将image替换为新的image 然后docker-compose 重新启动
+#  连接到 ssh服务器 更新代码 重新build image 然后docker-compose 重新启动
   script:
-  - ssh ubuntu@111.231.82.45
+    - ./run.sh deploy
 
