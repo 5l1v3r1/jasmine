@@ -35,7 +35,7 @@ test:
   before_script:
   - python -V
   script:
-  - apt-get install -y python-dev python-pip
+  - apt-get install -y python3
   - pip install -U -r requirements.txt
   - flake8 app db jobs tests
   - pytest -s -x
