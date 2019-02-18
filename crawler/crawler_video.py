@@ -60,7 +60,7 @@ class HupuVideoCrawler:
             url = base_video_url.format(page_index)
             try:
                 html = self.cache.get(collection_name=collection_name, key=url)
-                print(self.cache.length(collection_name), 'length')
+                print(self.cache.length(collection_name), "length")
                 self.logger.info(msg="get html from cache: {}".format(url))
             except KeyError:
                 res = requests.get(url=url)

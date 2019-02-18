@@ -5,7 +5,7 @@ import logging
 import oss2
 import io
 
-main = Blueprint('main', __name__)
+main = Blueprint("main", __name__)
 
 
 @main.context_processor
@@ -14,17 +14,17 @@ def override_url_for():
 
 
 def dated_url_for(endpoint, **values):
-    if endpoint == 'static':
-        filename = values.get('filename', None)
+    if endpoint == "static":
+        filename = values.get("filename", None)
         if filename:
             file_path = os.path.join(current_app.root_path, endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
+            values["q"] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
 
 
-@main.route('/')
+@main.route("/")
 def index():
     # add.delay(2, 3)
     # logger = logging.getLogger('test_loger')
     # logger.log(level=logging.ERROR, msg='this is test logger')
-    return render_template('main/base.html')
+    return render_template("main/base.html")

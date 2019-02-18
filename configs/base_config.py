@@ -30,6 +30,6 @@ class Config:
     #         'django.exceptions.*',
     #         ValueError,
     #     ],
-        # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+    # 'release': raven.fetch_git_sha(os.path.dirname(__file__)),
 
     # }

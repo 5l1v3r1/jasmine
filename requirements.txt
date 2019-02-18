@@ -17,3 +17,5 @@ celery
 flask_bootstrap
 blinker
 oss2
+pyflakes
+black

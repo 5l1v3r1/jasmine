@@ -7,7 +7,10 @@ from config import test_app_id, test_app_secret
 
 token = get_token()
 res = requests.get(
-    'https://api.weixin.qq.com/cgi-bin/user/info?access_token={}&openid={}&lang=zh_CN'.format(token,))
+    "https://api.weixin.qq.com/cgi-bin/user/info?access_token={}&openid={}&lang=zh_CN".format(
+        token
+    )
+)
 
 print(res.json())
 print(res.text)
