@@ -1,4 +1,4 @@
-## jasmine
+# jasmine
 
 此项目为练习和使用flask一些有趣的扩展和特性的试验田
 因为主要作为学习和实验，所以项目的代码不会太多。学习和理解起来也不会有太大的压力
@@ -77,5 +77,8 @@ gunicorn --bind 0.0.0.0:5001 run:app
 docker build --cache-from jasmine:latest -t jasmine:latest .
 docker tag jasmine:latest fjl2401/jasmine
 docker push fjl2401/jasmine
-测试阶段时候需要单独列出一个测试镜像?
-因为在服务器上也是通过dockerfile来搞到的，暂时不弄了吧.就build一次
+测试阶段为测试镜像
+
+## test
+
+pytest --cov=jasmine -s -x pytest生成测试覆盖率
