@@ -12,7 +12,7 @@ services:
   db:
     image: mysql:5.7
     volumes:
-      - /data/mysql/data:/var/lib/mysql
+      - /data/mysql/jasmine/data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: newpass
