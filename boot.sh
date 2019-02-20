@@ -7,7 +7,7 @@ function run() {
 
 function deploy() {
    ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; git pull"
-   ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; /home/ubuntu/miniconda3/bin/docker-compose up --build"
+   ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; /home/ubuntu/miniconda3/bin/docker-compose up -d --build"
 }
 Action=$1
 shift
