@@ -79,6 +79,11 @@ docker tag jasmine:latest fjl2401/jasmine
 docker push fjl2401/jasmine
 测试阶段为测试镜像
 
+### SSH登录
+
+ssh为非对称加密，需要在本机上生成公钥和私钥，然后把公钥交给需要登录的机器。然后将私钥以变量
+的信息存在gitlab ci中。
+
 ## test
 
 pytest --cov=jasmine -s -x pytest生成测试覆盖率

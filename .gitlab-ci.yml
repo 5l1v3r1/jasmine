@@ -3,10 +3,10 @@ stages:
 - deploy
 
 variables:
-   MYSQL_DATABASE: jasmine
-   MYSQL_ROOT_PASSWORD: newpass
-   PIP_CACHE_DIR: "/root/.cache/pip/"
-   IMAGE: fjl2401/${CI_PROJECT_NAME}
+  MYSQL_DATABASE: jasmine
+  MYSQL_ROOT_PASSWORD: newpass
+  PIP_CACHE_DIR: "/root/.cache/pip/"
+  IMAGE: fjl2401/${CI_PROJECT_NAME}
 before_script:
 - IMAGE_TAG=${IMAGE}:${CI_COMMIT_SHA:0:8}
 
@@ -42,7 +42,15 @@ test:
 
 deploy:
   stage: deploy
-#  连接到 ssh服务器 更新代码 重新build image 然后docker-compose 重新启动
+  #  连接到 ssh服务器 更新代码 重新build image 然后docker-compose 重新启动
+  before_script:
+  - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh-add ~/.ssh/id_rsa
+  - ssh-keyscan -H '111.231.82.45' >> ~/.ssh/known_hosts
   script:
-    - ./boot.sh deploy
+  - echo "$DEPLOY_SERVER_PRIVATE_KEY"
+  - ./boot.sh deploy
+
 
