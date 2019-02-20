@@ -5,7 +5,7 @@ COPY . .
 # debian系的
 COPY ./sources.list /etc/apt/
 RUN apt-get update &&apt-get install libssl-dev
-RUN pip install -r requirements.txt -r pip install -i http://mirrors.tencentyun.com/pypi/simple
+RUN pip install -r requirements.txt -i http://mirrors.tencentyun.com/pypi/simple
 RUN chmod -R +x .
 EXPOSE 5000:5000
 ENTRYPOINT ["./boot.sh","run"]
