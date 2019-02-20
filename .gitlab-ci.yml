@@ -51,7 +51,6 @@ deploy:
   - ssh-add ~/.ssh/id_rsa
   - ssh-keyscan -H '111.231.82.45' >> ~/.ssh/known_hosts
   script:
-  - echo "$DEPLOY_SERVER_PRIVATE_KEY"
   - ./boot.sh deploy
 
 
