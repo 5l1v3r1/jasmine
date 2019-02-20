@@ -44,6 +44,7 @@ deploy:
   stage: deploy
   #  连接到 ssh服务器 更新代码 重新build image 然后docker-compose 重新启动
   before_script:
+  - mkdir -p ~/.ssh
   - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - eval "$(ssh-agent -s)"
