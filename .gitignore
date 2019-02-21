@@ -277,3 +277,5 @@ Temporary Items
 .idea
 .vscode
 jasmine_app/play/token.txt
+.env
+celerybeat-schedule.db
