@@ -10,8 +10,8 @@
 - ci/cd 到云服务器
 - flask factory模式 结合celery 异步任务队列
 - flask+redis 配置缓存
-- 自动从.env文件加载配置的extention
-- flask 每次加载自动刷新js和css文件
+- 自动从.env文件加载配置
+- flask 每次加载自动刷新js和css文件,提高开发效率
 - 配置sentry 自动监控 和ignore log设置
 - flask-env 从.env文件中加载配置
 - flask cli 通过FlaskGroup来管理所有commands
@@ -22,9 +22,11 @@
 - 微信公众号后台api接口
 - 爬虫定时抓取、清洗、显示hupu视频数据+Elasticsearch搜索
 
-## ci/cd 持续发布
+## ci/cd 持续集成&持续部署
 
 通过gitlab ci+docker-compose 完成个人项目的持续发布
+docker-compose有 nginx+mysql+redis作为demo
+保证每次Push代码，线上的代码可以一键更新。
 ssh为非对称加密，需要在本机上生成公钥和私钥，然后把公钥交给需要登录的机器。然后将私钥以变量
 的信息存在gitlab ci中。
 
