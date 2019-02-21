@@ -1,6 +1,6 @@
 import requests
-from utils import get_token, get_token_from_wechat
-from config import test_app_id, test_app_secret
+
+from .utils import get_token
 
 # token = get_token_from_wechat(app_id=test_app_id, app_secret=test_app_secret)
 

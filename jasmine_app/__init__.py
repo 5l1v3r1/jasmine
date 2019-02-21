@@ -27,7 +27,7 @@ def create_app():
     app.cli.add_command(usr_cli)
     update_celery(app, celery)
     bootstrap.init_app(app)
-    flask_env.init_app(app)
+    # flask_env.init_app(app)
     redis_cache.init_app(app)
 
     # old solution
@@ -57,11 +57,6 @@ def create_app():
     from .api import api as api_blueprint
 
     app.register_blueprint(api_blueprint)
-    # commnands
+    # commands
     app.cli.add_command(usr_cli)
     return app
-
-
-@click.group(cls=FlaskGroup, create_app=create_app)
-def cli():
-    """Management script for the Wiki application."""

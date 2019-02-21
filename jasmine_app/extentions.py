@@ -12,7 +12,7 @@ bootstrap = Bootstrap()
 celery = Celery(__name__)
 
 
-class Flask_env:
+class FlaskEnv:
     def __init__(self, app=None):
         self.app = app
         if app:
@@ -54,7 +54,7 @@ class Flask_env:
                 self.app.config[key] = value
 
 
-flask_env = Flask_env()
+flask_env = FlaskEnv()
 
 
 class RedisCache:

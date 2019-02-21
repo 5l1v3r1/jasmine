@@ -1,5 +1,5 @@
 import requests
-from utils import get_token
+from .utils import get_token
 import json
 
 access_token = get_token()
