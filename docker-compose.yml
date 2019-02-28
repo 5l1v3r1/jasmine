@@ -14,8 +14,12 @@ services:
     volumes:
       - /data/mysql/jasmine/data:/var/lib/mysql
     restart: always
-    env_file:
-      - env/mysql.env
+    environment:
+      MYSQL_ROOT_PASSWORD: newpass
+      MYSQL_DATABASE: jasmine
+
+#    env_file:
+#      - env/mysql.env
   redis:
     image: redis:4.0
     volumes:
