@@ -1,10 +1,10 @@
-# @Time    : 2018/9/24 下午1:34
-from configs.dev_config import Dev_Config
-from configs.production_config import Production_config
+from configs.dev_config import DevConfig
+from configs.production_config import ProductionConfig
+from configs.test_config import TestConfig
 
 config = {
-    "developement": Dev_Config,
-    # 'testing': TestConfig,
-    "production": Production_config,
-    "default": Dev_Config,
+    "development": DevConfig,
+    "testing": TestConfig,
+    "production": ProductionConfig,
+    "default": DevConfig,
 }

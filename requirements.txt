@@ -21,3 +21,5 @@ pyflakes
 black
 flake8
 pytest-cov
+peewee
+psycopg2-binary

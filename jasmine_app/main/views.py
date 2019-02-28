@@ -1,9 +1,7 @@
 import os
+
 from flask import render_template, url_for, Blueprint, current_app
-from jasmine_app.main.tasks import add
-import logging
-import oss2
-import io
+from jasmine_app.models.user import User
 
 main = Blueprint("main", __name__)
 
@@ -24,6 +22,12 @@ def dated_url_for(endpoint, **values):
 
 @main.route("/")
 def index():
+    users = User.select()
+    user_numbers = len(users)
+    if user_numbers == 0:
+        user_data = {"name": "icecola", "id": 1}
+        User.create(**user_data)
+    print(User.select().count())
     # add.delay(2, 3)
     # logger = logging.getLogger('test_loger')
     # logger.log(level=logging.ERROR, msg='this is test logger')

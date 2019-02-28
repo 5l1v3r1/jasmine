@@ -16,6 +16,7 @@
 - 配置sentry 自动监控 和ignore log设置
 - flask-env 从.env文件中加载配置
 - flask+pytest 进行单元测试,配置数据库
+- flask和peewee进行集成
 
 ## 待完成
 
@@ -51,10 +52,33 @@ app = create_app()
 app.app_context().push()
 
 ``` 
-### 运行
+### 运行celery
 
 celery worker -B -A run_celery.celery --loglevel=info
+celery beat -A run_celery.celery -l info
+将celery添加到docker-compose中执行命令,celery应该拥有代码和安装的资源包
 
+
+## flask +peewee
+
+peewee是一个好用的轻量级orm,语法简单，文档完善，易扩展
+peewee 和flask集成，主要在三个地方
+1. 每次请求前before_request和after_request进行connect_db和disconnect
+2. 在创建model的时候需要在meta中绑定database。database的初始化放在了FlaskPeewee init_app的时候
+通过FLaskPeewee类中继承下peewee的Model，在新的model中声明database为self.database即可。通过cache_property
+将Model声明为带缓存的属性。然后在定义model时，直接继承自这个新定义的model即可。
+
+```python
+    @cached_property
+    def Model(self):
+        class BaseModel(Model):
+            class Meta:
+                database = self.database
+
+        return BaseModel
+```
+3. migration的管理。目前是通过脚本来手动执行，即在command文件夹中创建cli命令，在这里需要注意下循环依赖
+的问题。具体的原因在代码中有说明。
 
 ### 发布镜像到docker.io
 docker build --cache-from jasmine:latest -t jasmine:latest .
@@ -125,7 +149,8 @@ app.cli.add_command(usr_cli)
 ## gunicorn运行
 
 app中create_app 并运行
-gunicorn --bind 0.0.0.0
+gunicorn --bind 0.0.0.0:5001 run:app
+
 
 ## 错误处理
 

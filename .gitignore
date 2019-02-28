@@ -276,6 +276,7 @@ Temporary Items
 
 .idea
 .vscode
-jasmine_app/play/token.txt
+jasmine_app/play/
 .env
 celerybeat-schedule.db
+*.pid

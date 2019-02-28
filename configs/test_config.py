@@ -1,5 +1,5 @@
 from configs.base_config import Config
 
 
-class ProductionConfig(Config):
+class TestConfig(Config):
     DEBUG = True

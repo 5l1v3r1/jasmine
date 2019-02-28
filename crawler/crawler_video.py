@@ -6,9 +6,20 @@ import requests
 from bs4 import BeautifulSoup
 from crawler_utils import MongoCache
 from fake_useragent import FakeUserAgent
+from utils.redis_keys import HUPU_PAGE_INDEX_KEY
+from redis import Redis
+import logging.handlers
 
 base_video_url = "https://bbs.hupu.com/4858-{}"
 base_url = "https://bbs.hupu.com"
+
+
+def set_logger(logger_name):
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.DEBUG)
+    handler = logging.handlers.RotatingFileHandler(logger_name, maxBytes=102400)
+    # logger.addHandler(handler)
+    return logger
 
 
 class HupuVideoCrawler:
@@ -18,9 +29,11 @@ class HupuVideoCrawler:
         if cache:
             self.cache = cache
         else:
-            self.cache = MongoCache(db_name="hupu_crawler")
-
-        self.logger = logging.getLogger("hupu_crawler")
+            self.cache = MongoCache(
+                db_name="hupu_crawler", username="root", password="newpass"
+            )
+        self.logger = set_logger("hupu_crawler")
+        self.redis_client = Redis()
 
     def mongo_cache(self, func):
         @wraps(func)
@@ -52,18 +65,23 @@ class HupuVideoCrawler:
             """
             soup = BeautifulSoup(html, "html.parser")
             videos = soup.find_all("div", {"class": "titlelink box"})
+
             for video in videos:
                 yield (urljoin(base_url, video.a["href"]), video.a.text)
 
         collection_name = "video_html"
-        for page_index in range(1, page_nums):
+        page_begin_index = int(self.redis_client.get(HUPU_PAGE_INDEX_KEY))
+        if not page_begin_index:
+            page_begin_index = 1
+
+        for page_index in range(page_begin_index, page_nums):
             url = base_video_url.format(page_index)
             try:
                 html = self.cache.get(collection_name=collection_name, key=url)
                 print(self.cache.length(collection_name), "length")
                 self.logger.info(msg="get html from cache: {}".format(url))
             except KeyError:
-                res = requests.get(url=url)
+                res = requests.get(url=url, timeout=10)
                 html = res.text
                 self.logger.warning(
                     msg="cached does not exist, go request url:{} status_code: {}".format(
@@ -71,12 +89,14 @@ class HupuVideoCrawler:
                     )
                 )
                 self.cache.set(collection_name=collection_name, key=url, value=html)
-            parse_list_html(html)
+            yield parse_list_html(html)
+        #     更新Index值
+        self.redis_client.set(HUPU_PAGE_INDEX_KEY, page_begin_index + page_nums)
 
     def get_video_messages(self, video_html_messages):
         """
         parse video_messages and download video
-        :param video_html_messages:
+        :param video_html_messages: tuple
         :return:
         """
         collection_name = "video_html_urls"
@@ -84,7 +104,17 @@ class HupuVideoCrawler:
         def get_video_url(video_html_url):
             res = requests.get(video_html_url, headers=self.headers)
             soup = BeautifulSoup(res.text, "html.parser")
-            video_url = soup.find("video")["src"]
+            try:
+                video_url = soup.find("video")["src"]
+            except TypeError:
+                self.logger.debug(
+                    u"outlink can not be downloaded: video_html_url: {}".format(
+                        video_html_url
+                    )
+                    .encode("utf-8")
+                    .strip()
+                )
+                return
             self.logger.warning(
                 "cached does not exist, get video url:{} status_code: {}".format(
                     video_url, res.status_code
@@ -92,26 +122,27 @@ class HupuVideoCrawler:
             )
             return video_url
 
-        for video_html_url, video_title in video_html_messages:
-            try:
-                video_url = self.cache.get(collection_name, key=video_html_url)[
-                    "video_url"
-                ]
-                self.logger.info(
-                    msg="get video_url from cache: {} video_title: {}".format(
-                        video_url, video_title
+        for page_messages in video_html_messages:
+            for video_html_url, video_title in page_messages:
+                try:
+                    video_url = self.cache.get(collection_name, key=video_html_url)[
+                        "video_url"
+                    ]
+                    self.logger.info(
+                        msg="get video_url from cache: {} video_title: {}".format(
+                            video_url, video_title
+                        )
                     )
-                )
-
-            except KeyError:
-                video_url = get_video_url(video_html_url)
-                self.cache.set(
-                    collection_name,
-                    video_html_url,
-                    {"video_url": video_url, "video_title": video_title},
-                )
-
-            yield video_url, video_title
+                except KeyError:
+                    video_url = get_video_url(video_html_url)
+                    if not video_url:
+                        continue
+                    self.cache.set(
+                        collection_name,
+                        video_html_url,
+                        {"video_url": video_url, "video_title": video_title},
+                    )
+                yield video_url, video_title
 
     def download_videos(self, video_messages):
         """
@@ -124,8 +155,8 @@ class HupuVideoCrawler:
         # save to local path
 
         def save(io_content, file_name):
-            file_path = urljoin("/data/hupu_crawler/", file_name)
-            with open(file_path, "rb") as opener:
+            file_path = urljoin("/data/hupu_crawler/", file_name + ".mp4")
+            with open(file_path, "wb") as opener:
                 for chunk in io_content:
                     opener.write(chunk)
                     opener.flush()

@@ -1,11 +1,13 @@
 import os
-
+from werkzeug.utils import cached_property
 import redis
 from celery import Celery
 from flask.cli import AppGroup
 from flask_bootstrap import Bootstrap
 from raven.contrib.flask import Sentry
 from werkzeug.utils import import_string
+from playhouse.db_url import connect
+from peewee import Model
 
 bootstrap = Bootstrap()
 
@@ -75,6 +77,40 @@ class RedisCache:
 
 redis_cache = RedisCache()
 sentry = Sentry()
+
+
+class FlaskPeewee:
+    def __init__(self, app=None):
+        if app is not None:
+            self.init_app(app)
+
+    def connect_db(self):
+        if self.database.is_closed():
+            self.database.connect()
+
+    def disconnect_db(self, exc):
+        if not self.database.is_closed():
+            self.database.close()
+
+    @cached_property
+    def Model(self):
+        class BaseModel(Model):
+            class Meta:
+                database = self.database
+
+        return BaseModel
+
+    def init_app(self, app):
+        self.database = connect(url=app.config["DATABASE_URL"])
+        app.database = self.database
+        self._register_handlers(app)
+
+    def _register_handlers(self, app):
+        app.before_request(self.connect_db)
+        app.teardown_request(self.disconnect_db)
+
+
+flask_peewee = FlaskPeewee()
 
 usr_cli = AppGroup("user")
 
