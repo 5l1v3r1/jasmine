@@ -23,3 +23,5 @@ flake8
 pytest-cov
 peewee
 psycopg2-binary
+celery
+pymysql

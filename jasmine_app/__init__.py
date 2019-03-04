@@ -20,7 +20,7 @@ from jasmine_app.utils import update_celery
 
 def create_app():
     app = Flask(__name__)
-    env = os.environ.get("FLASK_ENV", "production")
+    env = os.environ.get("FLASK_ENV", "development")
     app.config.from_object(config[env])
     app.cli.add_command(usr_cli)
     update_celery(app, celery)

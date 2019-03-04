@@ -34,7 +34,7 @@ class Config:
     CELERY_BEAT_SCHEDULE = {
         "add": {
             "task": "jasmine_app.main.tasks.add",
-            "schedule": timedelta(minutes=1),
+            "schedule": timedelta(seconds=1),
             "args": (14, 14),
         },
         # spider get hupu data every_day

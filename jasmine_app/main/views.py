@@ -2,7 +2,7 @@ import os
 
 from flask import render_template, url_for, Blueprint, current_app
 from jasmine_app.models.user import User
-
+from jasmine_app.main.tasks import add
 main = Blueprint("main", __name__)
 
 
@@ -28,7 +28,7 @@ def index():
         user_data = {"name": "icecola", "id": 1}
         User.create(**user_data)
     print(User.select().count())
-    # add.delay(2, 3)
+    add.delay(2, 3)
     # logger = logging.getLogger('test_loger')
     # logger.log(level=logging.ERROR, msg='this is test logger')
     return render_template("main/base.html")

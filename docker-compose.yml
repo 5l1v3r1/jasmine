@@ -9,7 +9,7 @@ services:
       - 8000:80
     depends_on:
       - jasmine
-  db:
+  mysql:
     image: mysql:5.7
     volumes:
       - /data/mysql/jasmine/data:/var/lib/mysql
@@ -17,7 +17,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: newpass
       MYSQL_DATABASE: jasmine
-
 #    env_file:
 #      - env/mysql.env
   redis:
@@ -27,10 +26,26 @@ services:
     restart: always
   jasmine:
     depends_on:
-      - db
+      - mysql
       - redis
     build: .
+    image: jasmine:latest
+    ports:
+      - 5000:5000
     restart: always
     environment:
-      DB_HOST: db
+      DB_HOST: mysql
       REDIS_HOST: redis
+      FLASK_ENV: production
+    command: bash -c "flask user create_user && ../boot.sh run"
+  celery:
+    depends_on:
+      - redis
+      - mysql
+    image: jasmine:latest
+    restart: always
+    environment:
+      REDIS_HOST: redis
+    command: ../boot.sh run_celery
+volumes:
+  redis:

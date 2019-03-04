@@ -7,6 +7,7 @@ variables:
   MYSQL_ROOT_PASSWORD: newpass
   PIP_CACHE_DIR: "/root/.cache/pip/"
   IMAGE: fjl2401/${CI_PROJECT_NAME}
+  FLASK_ENV: testing
 before_script:
 - IMAGE_TAG=${IMAGE}:${CI_COMMIT_SHA:0:8}
 
@@ -21,7 +22,7 @@ cache:
 #  tags:
 #  - build_image
 #  script:
-#  - docker build -t ${IMAGE_TAG} -f Dockerfile .
+#  - docker build -t ${IMAGE_TAG} -f jasmine .
 #  - docker login -u "$REGISTRY_USERNAME" --password "$REGISTRY_PASSWORD"
 #  - docker push ${IMAGE_TAG}
 
