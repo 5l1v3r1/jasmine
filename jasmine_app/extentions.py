@@ -8,6 +8,7 @@ from raven.contrib.flask import Sentry
 from werkzeug.utils import import_string
 from playhouse.db_url import connect
 from peewee import Model
+from flask_mail import Mail
 
 bootstrap = Bootstrap()
 
@@ -128,3 +129,6 @@ def load_commands():
 
 
 load_commands()
+
+
+mail = Mail()

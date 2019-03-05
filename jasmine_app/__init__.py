@@ -14,6 +14,7 @@ from jasmine_app.extentions import (
     sentry,
     usr_cli,
     flask_peewee,
+mail
 )
 from jasmine_app.utils import update_celery
 
@@ -28,6 +29,7 @@ def create_app():
     # flask_env.init_app(app)
     redis_cache.init_app(app)
     flask_peewee.init_app(app)
+    mail.init_app(app)
     # old solution
     client = Client(
         "https://e3c5ddd746d9486d9f0a76b6953d8be2:4902b914e65b46748d84e960ce122eba@sentry.io/1327554"

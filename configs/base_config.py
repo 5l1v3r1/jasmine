@@ -1,3 +1,6 @@
+import os
+
+
 class Config:
     CACHE_BACKEND = "Redis"
     CACHE_PREFIX = "jasmine"
@@ -31,11 +34,10 @@ class Config:
     CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
 
     CELERY_ACCEPT_CONTENT = ["json"]
-    CELERY_BEAT_SCHEDULE = {
-        "add": {
-            "task": "jasmine_app.main.tasks.add",
-            "schedule": timedelta(seconds=1),
-            "args": (14, 14),
+    CELERYBEAT_SCHEDULE = {
+        "test_celery_beat": {
+            "task": "jasmine_app.main.tasks.test_celery_beat",
+            "schedule": timedelta(seconds=10),
         },
         # spider get hupu data every_day
         "fetch_hupu_data": {
@@ -54,3 +56,13 @@ class Config:
         host=DB_HOST, user=DB_USER, password=DB_PASSWORD, name=DB_NAME
     )
     PW_CONN_PARAMS = {"charset": DB_CLIENT_CHARSET, "stale_timeout": 1800}
+
+    # email
+    MAIL_SERVER = "smtp.163.com"
+    MAIL_PORT = "25"
+    MAIL_USE_TLS = True
+    MAIL_USER = os.environ.get("mail_user")
+    MAIL_PASSWORD = os.environ.get("mail_password")
+    EMAIL_LIST = ["995972493@qq.com"]
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    MAIL_SENDER = os.environ.get("MAIL_SENDER")

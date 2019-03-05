@@ -1,8 +1,9 @@
 import os
 
-from flask import render_template, url_for, Blueprint, current_app
+from flask import render_template, url_for, Blueprint, current_app, flash
 from jasmine_app.models.user import User
-from jasmine_app.main.tasks import add
+from jasmine_app.main.tasks import send_mail
+
 main = Blueprint("main", __name__)
 
 
@@ -27,8 +28,13 @@ def index():
     if user_numbers == 0:
         user_data = {"name": "icecola", "id": 1}
         User.create(**user_data)
-    print(User.select().count())
-    add.delay(2, 3)
     # logger = logging.getLogger('test_loger')
     # logger.log(level=logging.ERROR, msg='this is test logger')
+    return render_template("main/base.html")
+
+
+@main.route("/send_mailssss")
+def send_email():
+    send_mail.delay()
+    flash("发送成功")
     return render_template("main/base.html")

@@ -2,8 +2,8 @@ Flask
 Flask-HTTPAuth
 Flask-Migrate
 Flask-Script
-Flask-SQLAlchemy
 flask-env
+python-dotenv
 httpie
 SQLAlchemy
 Flask-Login
@@ -25,3 +25,6 @@ peewee
 psycopg2-binary
 celery
 pymysql
+icecola
+pymongo
+pendulum

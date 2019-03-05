@@ -81,6 +81,7 @@ peewee 和flask集成，主要在三个地方
 的问题。具体的原因在代码中有说明。
 
 ### 发布镜像到docker.io
+
 docker build --cache-from jasmine:latest -t jasmine:latest .
 docker tag jasmine:latest fjl2401/jasmine
 docker push fjl2401/jasmine

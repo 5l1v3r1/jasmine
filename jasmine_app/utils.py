@@ -11,3 +11,4 @@ def update_celery(app, celery):
                 return TaskBase.__call__(self, *args, **kwargs)
 
     celery.Task = ContextTask
+
