@@ -51,7 +51,7 @@ from jasmine_app import celery
 app = create_app()
 app.app_context().push()
 
-``` 
+```
 ### 运行celery
 
 celery worker -B -A run_celery.celery --loglevel=info
@@ -103,7 +103,7 @@ docker push fjl2401/jasmine
 需要去sentry注册并生成秘钥，官方文档也挺好的。主要给出屏蔽错误信息方法。
 有两种方法
 1. raven
-2. sentry_sdk 
+2. sentry_sdk
 
 pip install --upgrade sentry-sdk[flask]==0.5.5
 
@@ -144,6 +144,18 @@ def create_user():
 app.cli.add_command(usr_cli)
 
 ```
+## pre-commit
+
+在git每次提交的时候运行pre-commit来规范自己的代码，属于静态检查工具，添加的检查工具有:
+- flake8
+- black
+- pre-commit 官方的hook来约束代码的Import格式和空格
+
+### 使用方法
+
+1. pip intsall pre-commit
+2. 在项目下pre-commit install
+3. 配置.pre-commit-config.yaml 具体内容见: [Github](https://github.com/pre-commit/pre-commit-hooks/)
 
 
 
@@ -156,7 +168,7 @@ gunicorn --bind 0.0.0.0:5001 run:app
 ## 错误处理
 
 celery AttributeError: 'float' object has no attribute 'items'
-pyredis=redis-2.10.6 
+pyredis=redis-2.10.6
 
 Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
 Received unregistered task of type 'jasmine_app.main.tasks.add'.
