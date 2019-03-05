@@ -1,4 +1,4 @@
-from jasmine_app.extentions import usr_cli, redis_cache, flask_peewee
+from jasmine_app.extentions import redis_cache, usr_cli
 
 
 @usr_cli.command("create_user")

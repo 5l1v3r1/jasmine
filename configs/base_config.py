@@ -50,7 +50,7 @@ class Config:
     }
     # database
     DB_CLIENT_CHARSET = "utf8mb4"
-    DB_HOST = "mysql"
+    DB_HOST = "localhost"
     DB_USER = "root"
     DB_PASSWORD = "newpass"
     DB_NAME = "jasmine"
