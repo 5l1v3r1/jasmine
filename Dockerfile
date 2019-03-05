@@ -7,3 +7,4 @@ COPY ./sources.list /etc/apt/
 RUN apt-get update &&apt-get install libssl-dev
 RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple/
 RUN chmod -R +x .
+ENV FLASK_ENV=production

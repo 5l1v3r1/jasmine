@@ -31,10 +31,3 @@ def index():
     # logger = logging.getLogger('test_loger')
     # logger.log(level=logging.ERROR, msg='this is test logger')
     return render_template("main/base.html")
-
-
-@main.route("/send_mailssss")
-def send_email():
-    send_mail.delay()
-    flash("发送成功")
-    return render_template("main/base.html")

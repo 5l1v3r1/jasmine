@@ -26,5 +26,4 @@ psycopg2-binary
 celery
 pymysql
 icecola
-pymongo
-pendulum
+Flask-Mail

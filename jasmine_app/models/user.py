@@ -7,3 +7,4 @@ class User(flask_peewee.Model):
 
     name = CharField(max_length=255)
     id = IntegerField()
+    password = CharField(max_length=32)

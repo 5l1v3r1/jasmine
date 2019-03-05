@@ -5,15 +5,14 @@ class Config:
     CACHE_BACKEND = "Redis"
     CACHE_PREFIX = "jasmine"
     # CACHE_HOST = "redis"
-    CACHE_HOST = "127.0.0.1"
+    CACHE_HOST = "localhost"
     CACHE_DB = 0
     CACHE_PORT = 6379
 
     LONG_CACHE_TTL = 1 * 24 * 60 * 60
     SHORT_CACHE_TTL = 10 * 60
 
-    REDIS_HOST = "redis"
-    REDIS_HOST = "127.0.0.1"
+    REDIS_HOST = "localhost"
     REDIS_DB = 0
     REDIS_PORT = 6379
 
@@ -27,7 +26,7 @@ class Config:
     # CELERY_ACCEPT_CONTENT = ['pickle']
     # CELERY_TASK_SERIALIZER = 'pickle'
     # CELERY_RESULT_SERIALIZER = 'pickle'
-    BROKER_URL = "redis://localhost:6379/0"
+    BROKER_URL = "redis://localhost:6379/1"
     # BROKER_URL = 'amqp://user:newpass@localhost:5672//'
     CELERY_TASK_PROTOCOL = 1
     # result_backend = 'redis://localhost:6379/1'
@@ -43,8 +42,11 @@ class Config:
         "fetch_hupu_data": {
             "task": "jasmine_app.main.tasks.fetch_hupu_data",
             "schedule": timedelta(days=1),
-        }
-        # 'send_email': {'task': 'jasmine_app.play.views.send_async_email'},
+        },
+        "send_mail_to_vip": {
+            "task": "jasmine_app.main.tasks.send_mail",
+            "schedule": timedelta(days=30),
+        },
     }
     # database
     DB_CLIENT_CHARSET = "utf8mb4"
@@ -58,11 +60,12 @@ class Config:
     PW_CONN_PARAMS = {"charset": DB_CLIENT_CHARSET, "stale_timeout": 1800}
 
     # email
-    MAIL_SERVER = "smtp.163.com"
-    MAIL_PORT = "25"
-    MAIL_USE_TLS = True
-    MAIL_USER = os.environ.get("mail_user")
-    MAIL_PASSWORD = os.environ.get("mail_password")
-    EMAIL_LIST = ["995972493@qq.com"]
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    MAIL_SENDER = os.environ.get("MAIL_SENDER")
+    MAIL_SERVER = "smtp.qq.com"
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USERNAME = "fjl2401@qq.com"
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    EMAIL_LIST = ["fjl2401@163.com"]
+    SECRET_KEY = "hard to guess"
+    MAIL_SENDER = "fjl2401@qq.com"
+    MAIL_USE_SSL = True
