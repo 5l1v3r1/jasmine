@@ -50,13 +50,7 @@ class Config:
     }
     # database
     DB_CLIENT_CHARSET = "utf8mb4"
-    DB_HOST = "localhost"
-    DB_USER = "root"
-    DB_PASSWORD = "newpass"
-    DB_NAME = "jasmine"
-    DATABASE_URL = "mysql+pool://{user}:{password}@{host}/{name}".format(
-        host=DB_HOST, user=DB_USER, password=DB_PASSWORD, name=DB_NAME
-    )
+    DATABASE_URL = "mysql+pool://root:newpass@localhost/jasmine"
     PW_CONN_PARAMS = {"charset": DB_CLIENT_CHARSET, "stale_timeout": 1800}
 
     # email
@@ -69,3 +63,13 @@ class Config:
     SECRET_KEY = "hard to guess"
     MAIL_SENDER = "fjl2401@qq.com"
     MAIL_USE_SSL = True
+
+    # mongodb
+    NO_MAIN_PAGE_URL = "http://93.91p26.space/v.php?next=watch"
+    NO_EACH_PAGE_URL = "http://92.91p26.space/v.php?next=watch&page={}"
+    HEADERS = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
+        "Accept-Encoding": "gzip, deflate",
+    }

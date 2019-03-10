@@ -2,7 +2,7 @@ from jasmine_app.extentions import redis_cache, usr_cli
 
 
 @usr_cli.command("create_user")
-def create_user():
+def create_user_table():
     """
     创建user table
     """
@@ -14,7 +14,20 @@ def create_user():
         from jasmine_app.models.user import User
 
         with app.database:
+            app.database.drop_tables([User])
             app.database.create_tables([User])
+
+
+#
+#
+@usr_cli.command("create_video")
+def create_video_table():
+    """
+    创建 video table
+    """
+    from jasmine_app.models.video import Video
+
+    Video.create_table()
 
 
 @usr_cli.command("redis")

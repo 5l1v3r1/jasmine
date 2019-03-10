@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jasmine</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/tether/dist/css/tether.min.css">
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="../static/css/my.css">
+
+</head>
+<body>
+
+<div class="container">
+
+    <nav>
+        <a href="" class="navbar-brand">
+            <h3>jasmine
+                <i class=""></i>
+            </h3>
+        </a>
+        <!--收缩按钮-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--收缩-->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><p id="current_user"></p></li>
+                <li class="nav-item active"><a class="nav-link" href="">article</a></li>
+                <li class="nav-item active"><a class="nav-link" id="nav-video" href="">video</a></li>
+                <li class="nav-item active"><a class="nav-link" href="">news</a></li>
+                <form class="form-inline  my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
+            <ul class="navbar-nav mr-2">
+                <!--为profile添加下拉功能-->
+                <li class="nav-item dropdown float-left">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">profile
+                        <span class="caret"></span>
+                    </a>
+                    <!--声明子菜单-->
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!--通过data-target来跳转到profile-modal-->
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#profile-modal">
+                            <i class="fa fa-user"> </i>
+                            profile
+                        </a>
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#settings-modal">
+                            <!--添加icon-->
+                            <i class="fa fa-cogs"></i>settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-sign-out"></i>
+                            logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <h1>blog title</h1>
+        <div class="blog-meta">
+            <p>this is blog</p>
+            <a href="">阅读全文</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-title">
+                    <h3>文章title</h3>
+                </div>
+                <div class="card-body">
+                    <p>content</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-title">
+                    <h3>文章title</h3>
+                </div>
+                <div class="card-body">
+                    <p>content</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blog post -->
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            <h2 class="border-bottom">today recommend</h2>
+            <div class="blog-post">
+            </div>
+        </div>
+        <div class="col-md-4 side-bar">
+            <div class="topic-container">
+                <div class="border border-info">
+                    <h2>tags</h2>
+                    <ul>
+                        <li><a id="to_java" href="">java</a></li>
+                        <li><a id="to_python">python</a></li>
+                        <li><a href="to_flask" id="to_flask">flask</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="recommend-posts">
+                <h2>
+                    recent blogs
+                </h2>
+                <ul>
+                    <li class="">
+                        <a href="">this is here</a>
+                    </li>
+                    <li class="">
+                        <a href="">this is here</a>
+                    </li>
+                    <li class="">
+                        <a href="">this is here</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="post-comment">
+
+                <form action="" id="create-user">
+                    <h2>create user</h2>
+                    <div class="form-group">
+                        <label>id</label>
+                        <input type="text" NAME="id" class="form-control" id="exampleInputEmail1"
+                               aria-describedby="emailHelp" placeholder="user id">
+                    </div>
+                    <div class="form-group">
+                        <label>username</label>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label>password</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                               placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/tether/dist/js/tether.min.js"></script>
+<script src="../node_modules/popper.js/dist/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../node_modules/underscore/underscore.js"></script>
+<script src="../node_modules/backbone/backbone.js"></script>
+<script src="../static/js/my.js"></script>
+
+</html>

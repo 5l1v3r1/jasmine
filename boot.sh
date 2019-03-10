@@ -19,7 +19,9 @@ function run_celery_beat() {
 function migrate() {
 flask user create_user
 }
-
+function create_db() {
+   mysql -u root -pnewpass -e "create database $1 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+}
 Action=$1
 shift
  case "$Action" in
@@ -33,6 +35,8 @@ shift
  run_celery_beat;;
  migrate)
  migrate;;
+ create_db )
+ create_db "$1";;
     *) echo 'usage: ./boot.sh command
      command:
      runserver:                  run
@@ -40,6 +44,7 @@ shift
      run celery worker           run_celery
      run celery beat             run_celery_beat
      migrate data                migrate
+     create_db                   create_db [dbname]
      ' ;;
 
 esac

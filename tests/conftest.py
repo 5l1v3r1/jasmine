@@ -1,18 +1,26 @@
-import pytest
 import os
+
+import pytest
+
 from jasmine_app import create_app
 
 
-@pytest.fixture
+def pytest_sessionstart(session):
+    os.environ["FLASK_ENV"] = "testing"
+    create_app()
+
+
+@pytest.fixture(scope="session")
 def app():
     os.environ["FLASK_ENV"] = "testing"
     app = create_app()
+    # 必须在create_app后 model user才能用。。
+    from jasmine_app.models.user import User
+
     with app.app_context():
-        # db.create_all()
-        # after tear down test
+        app.database.create_tables([User])
         yield app
-        # db.session.remove()
-        # db.drop_all()
+        app.database.drop_tables([User])
 
 
 @pytest.fixture

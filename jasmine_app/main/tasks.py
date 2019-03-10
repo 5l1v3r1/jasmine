@@ -1,9 +1,9 @@
-from jasmine_app.extentions import celery
-from crawler.crawler_video import HupuVideoCrawler
 from flask import current_app
-from jasmine_app.extentions import mail
 from flask_mail import Message
-import os
+
+from crawler.crawler_video import HupuVideoCrawler
+from crawler.no_crawler import NoCrawler
+from jasmine_app.extentions import celery, mail
 
 
 @celery.task
@@ -32,3 +32,14 @@ def send_mail():
     )
     message.body = "hello first mail"
     mail.send(message)
+
+
+@celery.task
+def mvp_crawler():
+    from jasmine_app.models.video import Video
+
+    base_url = current_app.config.NO_MAIN_PAGE_URL
+    crawler = NoCrawler()
+    messages = crawler.get_video_url(base_url)
+    for message in messages:
+        Video.create(**message)

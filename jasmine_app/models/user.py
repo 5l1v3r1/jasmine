@@ -1,10 +1,12 @@
-from peewee import CharField, IntegerField
+from peewee import CharField
 
 from jasmine_app.extentions import flask_peewee
 
 
-class User(flask_peewee.Model):
+class SerializerMixin:
+    pass
 
+
+class User(flask_peewee.Model, SerializerMixin):
     name = CharField(max_length=255)
-    id = IntegerField()
-    password = CharField(max_length=32)
+    password = CharField(max_length=32, null=False)

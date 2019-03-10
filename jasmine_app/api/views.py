@@ -1,15 +1,34 @@
+from flask import abort, jsonify, make_response, request
 from flask.views import MethodView
-from flask import Response
-from jasmine_app.api import api
-from jasmine_app.extentions import redis_cache
+from playhouse.shortcuts import model_to_dict
+
+from jasmine_app.models.user import User
 
 
-class HelloView(MethodView):
+class UserView(MethodView):
     def get(self):
-        redis_cache.set("name", "hello_redis_cache")
-        return Response(redis_cache.get("name"))
+        user_id = request.args.get("user_id")
+        if user_id is None:
+            abort(status=400)
+        user = User.select().where(User.id == user_id).first()
+
+        res = make_response(jsonify(model_to_dict(user)))
+        res.headers["Access-Control-Allow-Origin"] = "*"
+
+        return res
+
+    def post(self):
+        data = request.json
+        print("this is request json", data)
+        if not data:
+            abort(400)
+        user = User.create(**data)
+        res = make_response(jsonify(model_to_dict(user)))
+        res.headers["Access-Control-Allow-Origin"] = "*"
+        # res.headers['Access-Control-Allow-Credentials'] = True
+        return res
 
 
-@api.route("/hello_world")
-def index():
-    return Response("hello world!")
+class BookView(MethodView):
+    def get(self):
+        return jsonify([{"name": "book1"}, {"name": "book2"}, {"name": "book3"}])

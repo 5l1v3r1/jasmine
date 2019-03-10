@@ -280,3 +280,4 @@ jasmine_app/play/
 .env
 celerybeat-schedule.db
 *.pid
+jasmine_app/node_modules/

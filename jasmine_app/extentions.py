@@ -1,14 +1,14 @@
 import os
-from werkzeug.utils import cached_property
+
 import redis
 from celery import Celery
 from flask.cli import AppGroup
 from flask_bootstrap import Bootstrap
-from raven.contrib.flask import Sentry
-from werkzeug.utils import import_string
-from playhouse.db_url import connect
-from peewee import Model
 from flask_mail import Mail
+from peewee import Model
+from playhouse.db_url import connect
+from raven.contrib.flask import Sentry
+from werkzeug.utils import cached_property, import_string
 
 bootstrap = Bootstrap()
 
@@ -33,7 +33,6 @@ class FlaskEnv:
         # read file
         # parse the str
         # write in config
-        print("load .env file from parent dir")
         with open(env_file) as opener:
             lines = opener.readlines()
             for line in lines:
@@ -42,16 +41,10 @@ class FlaskEnv:
                 # export
                 if not line:
                     continue
-                if line.split(" ")[0] is "export":
+                if line.split(" ")[0] == "export":
                     line = line.split(" ")[1]
                 config_list = line.split("=")
                 key, value = config_list[0], config_list[1]
-                if self.app.config.get(key):
-                    print(
-                        "overwrite an exist key : {} {} ---> {}".format(
-                            key, self.app.config[key], value
-                        )
-                    )
                 if value.isdigit():
                     value = int(value)
                 self.app.config[key] = value
