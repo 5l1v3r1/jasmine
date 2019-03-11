@@ -2,9 +2,7 @@ import os
 
 
 class Config:
-    CACHE_BACKEND = "Redis"
     CACHE_PREFIX = "jasmine"
-    # CACHE_HOST = "redis"
     CACHE_HOST = "localhost"
     CACHE_DB = 0
     CACHE_PORT = 6379
@@ -23,13 +21,8 @@ class Config:
     from datetime import timedelta
 
     # redis 作为消息队列
-    # CELERY_ACCEPT_CONTENT = ['pickle']
-    # CELERY_TASK_SERIALIZER = 'pickle'
-    # CELERY_RESULT_SERIALIZER = 'pickle'
     BROKER_URL = "redis://localhost:6379/1"
-    # BROKER_URL = 'amqp://user:newpass@localhost:5672//'
     CELERY_TASK_PROTOCOL = 1
-    # result_backend = 'redis://localhost:6379/1'
     CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
 
     CELERY_ACCEPT_CONTENT = ["json"]
@@ -46,6 +39,11 @@ class Config:
         "send_mail_to_vip": {
             "task": "jasmine_app.main.tasks.send_mail",
             "schedule": timedelta(days=30),
+        },
+        # mvp No_video crawler
+        "mvp": {
+            "task": "jasmine_app.main.tasks.mvp_crawler",
+            "schedule": timedelta(days=1),
         },
     }
     # database
@@ -64,12 +62,5 @@ class Config:
     MAIL_SENDER = "fjl2401@qq.com"
     MAIL_USE_SSL = True
 
-    # mongodb
+    # crawler begin page
     NO_MAIN_PAGE_URL = "http://93.91p26.space/v.php?next=watch"
-    NO_EACH_PAGE_URL = "http://92.91p26.space/v.php?next=watch&page={}"
-    HEADERS = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
-        "Accept-Encoding": "gzip, deflate",
-    }

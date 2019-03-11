@@ -41,6 +41,8 @@ services:
     depends_on:
       - redis
       - mysql
+    volumes:
+      - /data/videos:/data/videos
     image: jasmine:latest
     restart: always
     environment:

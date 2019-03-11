@@ -1,0 +1,13 @@
+video{
+    margin-left: 0;
+    position: relative;
+    left: 0;
+}
+
+.video-container p{
+    margin:5px;
+    border: 0;
+    padding: 0;
+    content: normal;
+    color: blue;
+}

@@ -7,7 +7,6 @@ from werkzeug.utils import import_string
 
 @click.group()
 def cli():
-    print("this is cki")
     pass
 
 

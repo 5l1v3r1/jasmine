@@ -9,10 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from concurrent import futures
 from crawler_utils.utils import timer, url2path
-from flask import current_app
 from tqdm import tqdm
-
-import configs
 
 dir_path = os.path.dirname(__file__)
 
@@ -24,8 +21,6 @@ class http_404_exception(Exception):
 class NoCrawler:
     def __init__(self):
         self.max_page = 0
-        self.base_url = current_app.config.MAIN_PAGE_URL
-        self.page_url = configs.config.EACH_PAGE_URL
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko)"
             " Chrome/72.0.3626.121 Safari/537.36"
@@ -90,18 +85,20 @@ class NoCrawler:
         if max_size:
             all = list(all)[:max_size]
         with futures.ThreadPoolExecutor(20) as executor:
-            res = executor.map(self.get_video_url, all, [update] * max_size)
+            res = executor.map(self.page_message_extract, all, [update] * max_size)
         print(len(list(res)))
 
-    def get_video_url(self, html):
+    def page_message_extract(self, page_url):
         """
         抓取首页的10个视频
         :param html:
         :return:
         """
+        res = requests.get(page_url, timeout=10, headers=self.headers)
+        html = res.text
 
         def extract_url(video_url):
-            res = requests.get(video_url, headers={"User-Agent"})
+            res = requests.get(video_url, headers=self.headers)
             bs4 = BeautifulSoup(res.text, "html.parser")
             mp4_url = bs4.find("source")["src"]
             return mp4_url
@@ -134,9 +131,10 @@ class NoCrawler:
                 ),
             }
             span_info = channel.find_all("span", {"class": "info"})
-            for key, each_span in zip(span_info, key_list):
+            for key, each_span in zip(key_list, span_info):
                 message_dict[key] = each_span.next_element.next_element.strip()
             message_list.append(message_dict)
+            print("success list_length:", len(message_list))
         return message_list
 
     def get_mp4s(self, update=False):
@@ -253,7 +251,10 @@ class NoCrawler:
 @timer
 def main():
     crawler = NoCrawler()
-    crawler.main()
+    res = crawler.page_message_extract(
+        page_url="http://93.91p26.space/v.php?next=watch"
+    )
+    print(res)
 
 
 if __name__ == "__main__":

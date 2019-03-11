@@ -6,13 +6,15 @@ from configs import config
 from jasmine_app.extentions import (
     flask_env,
     bootstrap,
-    celery,
     redis_cache,
     sentry,
     usr_cli,
     flask_peewee,
     mail,
 )
+
+# load command
+from jasmine_app.main.tasks import celery
 from jasmine_app.utils import update_celery
 
 

@@ -5,18 +5,14 @@
     <title>jasmine</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/tether/dist/css/tether.min.css">
-    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" href="../static/css/my.css">
-
 </head>
 <body>
-
 <div class="container">
-
-    <nav>
+    <nav class="navbar navbar-expand-md">
         <a href="" class="navbar-brand">
             <h3>jasmine
-                <i class=""></i>
             </h3>
         </a>
         <!--收缩按钮-->
@@ -96,7 +92,7 @@
     <div class="row">
         <div class="col-md-8 blog-main">
             <h2 class="border-bottom">today recommend</h2>
-            <div class="blog-post">
+            <div class="videos" id="videos">
             </div>
         </div>
         <div class="col-md-4 side-bar">
@@ -108,7 +104,6 @@
                         <li><a id="to_python">python</a></li>
                         <li><a href="to_flask" id="to_flask">flask</a></li>
                     </ul>
-
                 </div>
             </div>
             <div class="recommend-posts">
@@ -125,11 +120,9 @@
                     <li class="">
                         <a href="">this is here</a>
                     </li>
-
                 </ul>
             </div>
             <div class="post-comment">
-
                 <form action="" id="create-user">
                     <h2>create user</h2>
                     <div class="form-group">
@@ -148,11 +141,35 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
             </div>
         </div>
     </div>
+</div>
+<script id="videoTemplate" type="text/template">
+    <div class="card" id="video">
+        <div class="row">
+            <div class="col-md-8">
+                <video src="<%= url %>"
+                       controls>
+                </video>
+            </div>
+            <div class="col-md-4" style="border-left: 1px grey solid">
+                <p>
+                    title: <%= title %>
+                </p>
+                <p>published_time: <%= published_time %> </p>
+                <p>author: <%= author %> </p>
+                <p>view_times: <%= view_times %></p>
+                <p>favorite_nums: <%= favorite_nums %> </p>
+                <p>comments_nums <%= comments_nums %></p>
+                <p>points: <%= points %></p>
+                <p>level: <%= level %></p>
+            </div>
+        </div>
     </div>
+
+
+</script>
 </body>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/tether/dist/js/tether.min.js"></script>
