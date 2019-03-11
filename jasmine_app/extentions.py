@@ -3,14 +3,11 @@ import os
 import redis
 from celery import Celery
 from flask.cli import AppGroup
-from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from peewee import Model
 from playhouse.db_url import connect
 from raven.contrib.flask import Sentry
 from werkzeug.utils import cached_property, import_string
-
-bootstrap = Bootstrap()
 
 celery = Celery(__name__)
 

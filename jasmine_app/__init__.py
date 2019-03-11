@@ -5,7 +5,6 @@ from flask import Flask
 from configs import config
 from jasmine_app.extentions import (
     flask_env,
-    bootstrap,
     redis_cache,
     sentry,
     usr_cli,
@@ -24,7 +23,6 @@ def create_app():
     app.config.from_object(config[env])
     app.cli.add_command(usr_cli)
     update_celery(app, celery)
-    bootstrap.init_app(app)
     flask_env.init_app(app)
     redis_cache.init_app(app)
     flask_peewee.init_app(app)
