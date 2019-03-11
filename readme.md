@@ -17,6 +17,7 @@
 - flask-env 从.env文件中加载配置
 - flask+pytest 进行单元测试,配置数据库
 - flask和peewee进行集成
+- celery定时抓取视频数据，写入数据库，通过 backbone.js+flask 单页面应用和restful api集成
 
 ## 待完成
 
@@ -82,9 +83,9 @@ peewee 和flask集成，主要在三个地方
 
 ### 发布镜像到docker.io
 
-docker build --cache-from jasmine:latest -t jasmine:latest .
-docker tag jasmine:latest fjl2401/jasmine
-docker push fjl2401/jasmine
+- docker build --cache-from jasmine:latest -t jasmine:latest .
+- docker tag jasmine:latest fjl2401/jasmine
+- docker push fjl2401/jasmine
 
 
 ## flask-env
@@ -164,6 +165,11 @@ app.cli.add_command(usr_cli)
 app中create_app 并运行
 gunicorn --bind 0.0.0.0:5001 run:app
 
+
+## backbone.js
+
+前端mvc框架，学习简单，易使用。作用是在jquery的基础上进行扩展，通过rest api去请求，存储，展示数据。
+处理事件响应。
 
 ## 错误处理
 
