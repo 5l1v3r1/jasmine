@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from peewee import DoesNotExist
 
 from configs import config
 from jasmine_app.extentions import (
@@ -14,6 +15,7 @@ from jasmine_app.extentions import (
 
 # load command
 from jasmine_app.main.tasks import celery
+from jasmine_app.utils import not_exist
 from jasmine_app.utils import update_celery
 
 
@@ -26,6 +28,7 @@ def create_app():
     flask_env.init_app(app)
     redis_cache.init_app(app)
     flask_peewee.init_app(app)
+    app.register_error_handler(DoesNotExist, not_exist)
     mail.init_app(app)
     if env == "production":
         sentry.init_app(

@@ -7,12 +7,10 @@ from jasmine_app.models.video import Video
 
 
 class UserView(MethodView):
-    def get(self):
-        user_id = request.args.get("user_id")
+    def get(self, user_id):
         if user_id is None:
             abort(status=400)
-        user = User.select().where(User.id == user_id).first()
-
+        user = User.select().where(User.id == user_id).get()
         res = make_response(jsonify(model_to_dict(user)))
         res.headers["Access-Control-Allow-Origin"] = "*"
 
@@ -38,6 +36,6 @@ class VideosView(MethodView):
     def get(self, id):
         videos = Video.select()
         if id is not None:
-            video = videos.where(Video.id == id).first()
+            video = videos.where(Video.id == id).get()
             return jsonify(model_to_dict(video))
         return jsonify([model_to_dict(video) for video in videos])

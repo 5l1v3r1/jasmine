@@ -1,3 +1,6 @@
+from flask import Response
+
+
 def update_celery(app, celery):
     celery.conf.update(app.config)
     TaskBase = celery.Task
@@ -27,3 +30,7 @@ def register_api(app, view, endpoint, url, pk="id", pk_type="int"):
         view_func=view_func,
         methods=["GET", "PUT", "DELETE"],
     )
+
+
+def not_exist(error):
+    return Response(error, status=404)
