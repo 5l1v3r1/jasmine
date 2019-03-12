@@ -3,7 +3,7 @@ stages:
 - deploy
 
 variables:
-  MYSQL_DATABASE: jasmine
+  MYSQL_DATABASE: jasmine_test
   MYSQL_ROOT_PASSWORD: newpass
   PIP_CACHE_DIR: "/root/.cache/pip/"
   IMAGE: fjl2401/${CI_PROJECT_NAME}
@@ -54,5 +54,3 @@ deploy:
   - ssh-keyscan -H '111.231.82.45' >> ~/.ssh/known_hosts
   script:
   - ./boot.sh deploy
-
-
