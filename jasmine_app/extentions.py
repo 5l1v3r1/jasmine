@@ -19,17 +19,20 @@ class FlaskEnv:
             self.init_app(app)
 
     def init_app(self, app):
+        """
+        load env file to app.config
+        """
         if self.app is None:
             self.app = app
+        #  test don't need flask_env
+        if app.config["ENV"] == "testing":
+            return
         env_file = os.path.join(os.getcwd(), ".env")
         if not env_file:
             raise FileNotFoundError(".env file not found")
         self.__import_vars(env_file)
 
     def __import_vars(self, env_file):
-        # read file
-        # parse the str
-        # write in config
         with open(env_file) as opener:
             lines = opener.readlines()
             for line in lines:
@@ -119,6 +122,5 @@ def load_commands():
 
 
 load_commands()
-
 
 mail = Mail()

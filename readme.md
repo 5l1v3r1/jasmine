@@ -90,13 +90,31 @@ peewee 和flask集成，主要在三个地方
 
 ## flask-env
 
-安装: pip install python-dotenv
-在root目录下加入.env文件 .env文件中加入配置
+### python-dotenv
 
+适用方法：`flask run`
+
+python-dotenv 在create_app实例前将.env文件载入os的环境变量
+
+安装: pip install python-dotenv
+在root目录下加入.env文件 .env文件中加入配置:
 - FLASK_DEBUG=True or False
 - FLASK_APP=jasmin_app
 - FLASK_ENV=development
+- FLASK_RUN_PORT=3000
 
+### FlaskEnv
+
+适用方法： `python run.py runserver`
+
+FlaskEnv将.env文件在create_app后加载到app的config中。
+
+flask在工厂模式下创建app,在import_app时，会先create_app 返回app实例，然后再加载配置，重新启动app。
+而FaskEnv是在extension文件中,是在通过工厂模式加载extention,是在create_app后。所以debug或者port不会生效。
+但会加载一些静态的配置，比如:
+- MAIL_SUBJECT_PREFIX = [jasmine]
+- MAIL_SENDER = fjl2401@qq.com
+在程序运行后，这些配置被载入到app.config中。
 
 
 ## 配置sentry
