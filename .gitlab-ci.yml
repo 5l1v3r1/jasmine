@@ -52,5 +52,6 @@ deploy:
   - eval "$(ssh-agent -s)"
   - ssh-add ~/.ssh/id_rsa
   - ssh-keyscan -H '111.231.82.45' >> ~/.ssh/known_hosts
+  - ssh-keyscan -H '206.189.81.45' >> ~/.ssh/known_hosts
   script:
   - ./boot.sh deploy
