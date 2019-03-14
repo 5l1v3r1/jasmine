@@ -8,6 +8,9 @@ function run() {
 function deploy() {
    ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; git pull"
    ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; /home/ubuntu/miniconda3/bin/docker-compose up -d --build"
+   ssh  ubuntu@111.231.82.45 "cd /home/ubuntu/flask_project/jasmine; git push github master"
+   ssh icecola@206.189.81.45 "cd /home/icecola/flask_project/jasmine; git pull"
+   ssh icecola@206.189.81.45 "cd /home/icecola/flask_project/jasmine; /home/icecola/miniconda/bin/docker-compose up -d --build"
 }
 function run_celery() {
     celery worker -B -A run_celery.celery -l info
