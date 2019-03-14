@@ -45,6 +45,8 @@ class ModelViewSet(MethodView):
         query = self.model_class.select()
         if pk is not None:
             query = query.where(self.model_class.id == pk).first()
+            if query is None:
+                abort(status=404)
             return jsonify(model_to_dict(query, recurse=False))
         return jsonify([model_to_dict(q, recurse=False) for q in query])
 
