@@ -17,3 +17,4 @@ redis==3.2.0
 requests==2.21.0
 fake_useragent
 Faker
+pymysql
