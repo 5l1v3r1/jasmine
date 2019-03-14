@@ -9,7 +9,6 @@ import requests
 from bs4 import BeautifulSoup
 from concurrent import futures
 from crawler_utils.utils import timer, url2path
-from tqdm import tqdm
 
 dir_path = os.path.dirname(__file__)
 
@@ -220,7 +219,7 @@ class NoCrawler:
             print("not found")
             raise http_404_exception
         with open("{}.mp4".format(url2path(url)), "ab") as f:
-            for chuck in tqdm(res.iter_content(chunk_size=1024)):
+            for chuck in res.iter_content(chunk_size=1024):
                 f.write(chuck)
         print("写入成功: {}".format(url))
         return url
