@@ -1,5 +1,7 @@
 import os
 
+from celery.schedules import crontab
+
 
 class Config:
     CACHE_PREFIX = "jasmine"
@@ -16,6 +18,7 @@ class Config:
 
     REDLOCK_TIMEOUT = 10
     REDLOCK_BLOCKING_TIMEOUT = 5
+    timezone = "Asia/Shanghai"
 
     # celery
     from datetime import timedelta
@@ -34,16 +37,16 @@ class Config:
         # spider get hupu data every_day
         "fetch_hupu_data": {
             "task": "jasmine_app.main.tasks.fetch_hupu_data",
-            "schedule": timedelta(days=1),
+            "schedule": crontab(hour=20),
         },
         "send_mail_to_vip": {
             "task": "jasmine_app.main.tasks.send_mail",
-            "schedule": timedelta(days=30),
+            "schedule": crontab(day_of_month=15, hour=12),
         },
         # mvp No_video crawler
         "mvp": {
             "task": "jasmine_app.main.tasks.mvp_crawler",
-            "schedule": timedelta(days=1),
+            "schedule": crontab(hour=8),
         },
     }
     # database
@@ -57,7 +60,7 @@ class Config:
     MAIL_USE_TLS = False
     MAIL_USERNAME = "fjl2401@qq.com"
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    EMAIL_LIST = ["fjl2401@163.com"]
+    EMAIL_LIST = ["fjl2401@163.com", "826077013@qq.com", "441070584@qq.com"]
     SECRET_KEY = "hard to guess"
     MAIL_SENDER = "fjl2401@qq.com"
     MAIL_USE_SSL = True

@@ -25,11 +25,11 @@ def fetch_hupu_data():
 def send_mail():
     app = current_app._get_current_object()
     message = Message(
-        subject="来自樊佳亮的问候",
+        subject="hello,vip",
         recipients=app.config["EMAIL_LIST"],
         sender=app.config["MAIL_SENDER"],
     )
-    message.body = "hello first mail"
+    message.body = "Dear vip user\n" "<h1>please pay your outline bill to Alipay.</h1>"
     mail.send(message)
 
 
