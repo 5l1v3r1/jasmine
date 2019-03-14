@@ -30,8 +30,6 @@ services:
       - redis
     build: .
     image: jasmine:latest
-    ports:
-      - 5000:5000
     restart: always
     environment:
       DB_HOST: mysql
