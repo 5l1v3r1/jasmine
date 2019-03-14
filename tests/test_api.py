@@ -1,14 +1,16 @@
 from jasmine_app.models.user import User
+from jasmine_app.models.video import Video
+from tests.test_utils import fake_api
+
+# fake_api(client, User)
 
 
+@fake_api(Model=User)
 def test_user(client):
+    pass
 
-    user_id = 1
-    user_data = {"name": "test_1", "id": 1, "password": 123}
 
-    res = client.post("/api/user", json=user_data)
-    assert res.status_code == 200
-    assert User.select().count() == 1
-
-    res = client.get("/api/user?user_id={user_id}".format(user_id=user_id))
-    assert res.status_code == 200
+@fake_api(Model=Video, exclude_methods=("PUT",))
+def test_video(client):
+    # do some complex test
+    pass

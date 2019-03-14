@@ -35,6 +35,9 @@ ssh为非对称加密，需要在本机上生成公钥和私钥，然后把公�
 ### test
 
 在gitlab runner中通过docker镜像和依赖进行测试。进行flak8和pytest单元测试。
+在pytest.ini中加入参数，指定app，`--cov-fail-under=85 --ff` 当测试覆盖率小于85%
+时，测试失败。
+查看测试覆盖率报告:
 
 ### deploy
 

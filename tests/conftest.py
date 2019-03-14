@@ -16,11 +16,12 @@ def app():
     app = create_app()
     # 必须在create_app后 model user才能用。。
     from jasmine_app.models.user import User
+    from jasmine_app.models.video import Video
 
     with app.app_context():
-        app.database.create_tables([User])
+        app.database.create_tables([User, Video])
         yield app
-        app.database.drop_tables([User])
+        app.database.drop_tables([User, Video])
 
 
 @pytest.fixture
