@@ -32,7 +32,7 @@ class Config:
     CELERYBEAT_SCHEDULE = {
         "test_celery_beat": {
             "task": "jasmine_app.main.tasks.test_celery_beat",
-            "schedule": timedelta(seconds=10),
+            "schedule": timedelta(minutes=10),
         },
         # spider get hupu data every_day
         "fetch_hupu_data": {
