@@ -1,13 +1,96 @@
-video{
+body li{
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+body h1,h2,h3,h4{
+    font-family: italic;
+}
+
+video {
     margin-left: 0;
     position: relative;
     left: 0;
 }
 
-.video-container p{
-    margin:5px;
+.video-container p {
+    margin: 5px;
     border: 0;
     padding: 0;
     content: normal;
     color: blue;
+}
+
+a {
+    color: black;
+}
+
+.jumbotron {
+    text-align: center;
+    font-family: Menlo;
+}
+
+.jumbotron p {
+    position: relative;
+    right: 30px;
+}
+
+.jumbotron a {
+    position: relative;
+    right: 50px;
+}
+
+.h-md-250 {
+    height: 250px;
+}
+
+/*盒模型加上阴影*/
+.box-shadow {
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+}
+
+.blog-header-logo {
+    font-family: Georgia;
+    font-size: 2.25rem;
+}
+
+.blog-header {
+    line-height: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-post {
+    margin-bottom: 4rem;
+}
+
+.blog-post-title {
+    margin-bottom: .25rem;
+    font-size: 2.5rem;
+}
+
+.blog-post-meta {
+    margin-bottom: 1.25rem;
+    color: #999;
+}
+
+.navbar-nav li {
+    margin-right: 40px;
+    font-size: 24px;
+    font-family: Menlo;
+    /*background-color: #0f6674;*/
+    width: 200px;
+}
+
+
+.blog-footer {
+    padding: 2.5rem;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e2e5e5;
+}
+
+.recommend-posts li{
+    font-size: 24px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
 }

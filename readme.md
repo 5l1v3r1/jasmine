@@ -198,7 +198,7 @@ celery AttributeError: 'float' object has no attribute 'items'
 pyredis=redis-2.10.6
 
 Refusing to deserialize untrusted content of type pickle (application/x-python-serialize)
-Received unregistered task of type 'jasmine_app.main.tasks.add'.
+Received unregistered task of type 'jasmine_app.run.tasks.add'.
 The message has been ignored and discarded.
 使用新的导入方式
 from proj.module import foo

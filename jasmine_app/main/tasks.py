@@ -1,6 +1,7 @@
 from urllib.parse import urljoin
 
 import requests
+from crawler_utils.mongo_cache import MongoCache
 from crawler_utils.utils import url2path
 from flask import current_app
 from flask_mail import Message
@@ -34,15 +35,10 @@ def send_mail():
 
 
 @celery.task
-def mvp_crawler():
-    from jasmine_app.models.video import Video
-
-    base_url = current_app.config["NO_MAIN_PAGE_URL"]
-    crawler = NoCrawler()
-    messages = crawler.page_message_extract(base_url)
-    for message in messages:
-        Video.create(**message)
-        download_video(message["url"])
+def no_video_crawler():
+    cache = MongoCache("no_videos", "default")
+    crawler = NoCrawler(index_url=current_app.config["NO_MAIN_PAGE_URL"], cache=cache)
+    crawler.run()
 
 
 def download_video(url):

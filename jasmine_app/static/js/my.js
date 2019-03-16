@@ -15,7 +15,7 @@ $(function () {
         }
     });
     var VideoList = Backbone.Collection.extend({
-        url: "api/videos",
+        url: "api/video",
         model: Video,
     });
     var VideoView = Backbone.View.extend({
