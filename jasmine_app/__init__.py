@@ -16,7 +16,7 @@ from jasmine_app.extentions import (
 # load command
 from jasmine_app.main.tasks import celery
 from jasmine_app.utils import not_exist
-from jasmine_app.utils import update_celery
+from flask_utils import update_celery
 
 
 def create_app():

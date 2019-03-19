@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
 
+from jasmine_app.main.tasks import no_video_crawler
+
 main = Blueprint("run", __name__)
 
 
@@ -15,6 +17,5 @@ def videos():
 
 @main.route("/no_crawler")
 def no_crawler():
-    # no_video_crawler.delay()
-    # flash(message="crawler begin!")
+    no_video_crawler.delay()
     return render_template("index.html")

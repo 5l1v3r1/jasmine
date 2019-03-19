@@ -107,7 +107,7 @@ class NoCrawler:
         from jasmine_app.models.video import Video
 
         for message in message_list:
-            Video.create(**message)
+            Video.update_or_create(url=message["url"], defaults=message)
 
     def download_videos(self, video_urls):
         with futures.ThreadPoolExecutor(3) as executor:

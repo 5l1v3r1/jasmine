@@ -1,10 +1,7 @@
+from flask_utils.model import SerializerMixin
 from peewee import CharField
 
 from jasmine_app.extentions import flask_peewee
-
-
-class SerializerMixin:
-    pass
 
 
 class User(flask_peewee.Model, SerializerMixin):

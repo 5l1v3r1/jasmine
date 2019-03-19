@@ -1,10 +1,7 @@
+from flask_utils.model import SerializerMixin
 from peewee import AutoField, CharField, IntegerField, SmallIntegerField
 
 from jasmine_app.extentions import flask_peewee
-
-
-class SerializerMixin:
-    pass
 
 
 class Video(flask_peewee.Model, SerializerMixin):

@@ -1,5 +1,6 @@
+from flask_utils.views import register_api
+
 from jasmine_app.api.views import UserView, Video
-from jasmine_app.utils import register_api
 
 from . import api
 
