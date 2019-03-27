@@ -19,7 +19,6 @@ $(function () {
         model: Video,
     });
     var VideoView = Backbone.View.extend({
-        tagName: "div",
         //在每个video的外层添加video-container
         className:"video-container",
         template: _.template($('#videoTemplate').html()),
@@ -61,6 +60,5 @@ $(function () {
     });
     // 自动从服务端get数据
     var video_list_view = new VideoListView();
-
 
 });

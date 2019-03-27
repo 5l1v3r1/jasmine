@@ -1,9 +1,25 @@
-from flask_utils.model import SerializerMixin
-from peewee import CharField
+from datetime import datetime
 
-from jasmine_app.extentions import flask_peewee
+from peewee import CharField, ForeignKeyField
+
+from jasmine_app.extentions import db
+from jasmine_app.utils import DatetimeTZField
 
 
-class User(flask_peewee.Model, SerializerMixin):
-    name = CharField(max_length=255)
-    password = CharField(max_length=32, null=False)
+class Author(db.Model):
+    name = CharField(null=False, unique=True)
+    password = CharField(null=False)
+    email = CharField(null=False)
+    profile = CharField()
+    created_at = DatetimeTZField(default=datetime.now())
+
+
+class Tag(db.Model):
+    name = CharField(null=False, unique=True)
+
+
+class Article(db.Model):
+    author_name = ForeignKeyField(Author, Author.name)
+    title = CharField()
+    tag_name = ForeignKeyField(Tag, Tag.name)
+    created_at = DatetimeTZField(default=datetime.now())

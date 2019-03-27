@@ -1,10 +1,10 @@
 from flask_utils.model import SerializerMixin
 from peewee import AutoField, CharField, IntegerField, SmallIntegerField
 
-from jasmine_app.extentions import flask_peewee
+from jasmine_app.extentions import db
 
 
-class Video(flask_peewee.Model, SerializerMixin):
+class Video(db.Model, SerializerMixin):
     id = AutoField(primary_key=True)
     url = CharField(max_length=500, index=True)
     title = CharField(null=False, unique=True)

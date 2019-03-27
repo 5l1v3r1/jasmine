@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block header %}
+{% endblock %}
+{% block content %}
+    <h1>java home </h1>
+    <pre><code>:/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
+</code></pre>
+    <ul>
+        <li><p>安装 hadoop : brew instsall hadoop</p></li>
+        <li><p>在设置中共享 添加远程登录 然后百度下 如何 ssh 不需要密码</p></li>
+        <li><p>mac os 配置环境变量</p></li>
+    </ul>
+
+    <p><code>
+        ~/.bash_profile
+        source ~/.bash_profile
+        export PATH=/usr/local/
+    </code></p>
+
+    <h1>mac修改主机名</h1>
+
+    <p>sudo scutil --set HostName rainbird-desk</p>
+
+    <h2>配置 hadoop</h2>
+
+    <p>进入/usr/local/Cellar/hadoop/2.8.0/libexec/etc/hadoop
+        改为
+        export HADOOP<em>OPTS="$HADOOP</em>OPTS -Djava.net.preferIPv4Stack=true -Djava.security.krb5.realm=
+        -Djava.security.krb5.kdc="
+        export JAVA<em>HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0</em>121.jdk/Contents/Home"</p>
+
+    <ul>
+        <li>配置hadoop的环境变量</li>
+    </ul>
+
+    <p>```
+        export HADOOP_HOME=/usr/local/Cellar/hadoop/2.7.3</p>
+
+    <p>export PATH=$PATH:$HADOOP<em>HOME/sbin:$HADOOP</em>HOME/bin
+        ```</p>
+
+    <hr/>
+
+    <h2>查看hadoop version</h2>
+
+    <ul>
+        <li>hadoop version</li>
+    </ul>
+
+    <p>看java环境变量:</p>
+
+    <pre><code>echo $JAVA_HOME 查看java的环境变量
+</code></pre>
+
+    <ul>
+        <li>启动各项服务:
+            &gt; start-hadoop.sh
+            stop-hadoop.sh
+            start-all.sh
+            stop-all.sh
+            start-yarn.sh
+        </li>
+    </ul>
+
+    <h1>查看hadoop的位数</h1>
+
+    <ol>
+        <li>cd hadoop-2.4.1/lib/native</li>
+        <li>file libhadoop.so.1.0.0</li>
+    </ol>
+
+    <ul>
+        <li><p>编译yarn 源码:</p>
+
+            <pre><code>cd hadoop-maven-plugin
+mvn install
+cd ..
+mvn eclipse:eclipse -DskipTests
+</code></pre>
+        </li>
+    </ul>
+
+    <p>还需要安装 protobuf</p>
+
+    <pre><code>which protoc
+protoc --version
+</code></pre>
+
+    <h2>运行pyspark官方demo</h2>
+
+    <p>bin/run-example
+        <class>[params]
+            传递参数
+    </p>
+
+    <h2>启动slaves</h2>
+
+    <ol>
+        <li>sbin/start-slaves.sh</li>
+        <li>默认端口8080
+            3.
+        </li>
+    </ol>
+
+    <h2>报错</h2>
+
+    <p>Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</p>
+
+    <p>$HADOOP_HOME/lib/native/libhadoop.so.1.0.0
+        上面这个东西是32位的，需要改成64位</p>
+
+    <p>WARN TaskSetManager: Stage 0 contains a task of very large size (368 KB). The maximum recommended task size is
+        100 KB.</p>
+
+    <p>用 sparkcontext.range</p>
+
+    <h2>spark 提交任务到集群</h2>
+
+    <p>用<code>spark-submit</code> <code>--py-files</code></p>
+
+    <p>spark-submit 可以使用<code>bin/spark-submit</code>脚本启动
+        - 常用的选项
+        - --class main函数所在的类
+        - --master 集群的主网址
+        - --deploy-mode 是否将驱动程序部署在cluster上</p>
+
+    <p>节点无反应
+        All masters are unresponsive
+        解决方案:
+        ```
+        bin/spark-shell --master spark://master-ip:7077</p>
+
+    <p>```
+        spark://IceCola.local:7077</p>
+
+    <p>提交任务:
+        spark-submit --master spark://IceCola.local:7077 cal_pi.py</p>
+
+    <p>jps 查看进程是否启动</p>
+
+    <h1>Run application locally on 8 cores</h1>
+
+    <h1>spark将两台局域网电脑连起来</h1>
+
+    <p>复制文件到另一台主机上
+        scp ~/.ssh/id_rsa fjl@slave01:/home/fjl/</p>
+
+    <h2>修改slaves 文件</h2>
+
+    <p>/usr/local/Cellar/hadoop/hadoop-2.7.5/etc/hadoop/slaves</p>
+
+    <p>各种文件...</p>
+
+    <p>然后将master的文件分配到slav01上</p>
+
+    <p>tar -zcf ~/hadoop.master.tar.gz ./hadoop</p>
+
+    <p>scp ./hadoop.master.tar.gz fjl@slave01:/home/fjl/</p>
+
+    <p>在slave 节点上</p>
+
+    <p>sudo rm -rf /usr/local/Cellar/hadoop/</p>
+
+    <p>sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local/Cellar</p>
+
+    <p>sudo chown -R hadoop /usr/local/Cellar/hadoop</p>
+
+{% endblock %}

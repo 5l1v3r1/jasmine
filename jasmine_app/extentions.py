@@ -4,53 +4,13 @@ import redis
 from celery import Celery
 from flask.cli import AppGroup
 from flask_mail import Mail
-from peewee import Model
-from playhouse.db_url import connect
+from playhouse.flask_utils import FlaskDB
 from raven.contrib.flask import Sentry
-from werkzeug.utils import cached_property, import_string
+from werkzeug.utils import import_string
 
 celery = Celery(__name__)
 
-
-class FlaskEnv:
-    def __init__(self, app=None):
-        self.app = app
-        if app:
-            self.init_app(app)
-
-    def init_app(self, app):
-        """
-        load env file to app.config
-        """
-        if self.app is None:
-            self.app = app
-        #  test don't need flask_env
-        if app.config["ENV"] == "testing":
-            return
-        env_file = os.path.join(os.getcwd(), ".env")
-        if not env_file:
-            raise FileNotFoundError(".env file not found")
-        self.__import_vars(env_file)
-
-    def __import_vars(self, env_file):
-        with open(env_file) as opener:
-            lines = opener.readlines()
-            for line in lines:
-                line = line.replace("'", "")
-                line = line.strip("\n")
-                # export
-                if not line:
-                    continue
-                if line.split(" ")[0] == "export":
-                    line = line.split(" ")[1]
-                config_list = line.split("=")
-                key, value = config_list[0], config_list[1]
-                if value.isdigit():
-                    value = int(value)
-                self.app.config[key] = value
-
-
-flask_env = FlaskEnv()
+# flask_env = FlaskEnv()
 
 
 class RedisCache:
@@ -72,39 +32,7 @@ class RedisCache:
 redis_cache = RedisCache()
 sentry = Sentry()
 
-
-class FlaskPeewee:
-    def __init__(self, app=None):
-        if app is not None:
-            self.init_app(app)
-
-    def connect_db(self):
-        if self.database.is_closed():
-            self.database.connect()
-
-    def disconnect_db(self, exc):
-        if not self.database.is_closed():
-            self.database.close()
-
-    @cached_property
-    def Model(self):
-        class BaseModel(Model):
-            class Meta:
-                database = self.database
-
-        return BaseModel
-
-    def init_app(self, app):
-        self.database = connect(url=app.config["DATABASE_URL"])
-        app.database = self.database
-        self._register_handlers(app)
-
-    def _register_handlers(self, app):
-        app.before_request(self.connect_db)
-        app.teardown_request(self.disconnect_db)
-
-
-flask_peewee = FlaskPeewee()
+db = FlaskDB()
 
 usr_cli = AppGroup("user")
 
