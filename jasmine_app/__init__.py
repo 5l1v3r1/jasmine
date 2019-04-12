@@ -24,6 +24,7 @@ from flask_utils import update_celery
 def create_app():
     app = Flask(__name__)
     env = os.environ.get("FLASK_ENV", "development")
+    print(os.environ.get("MAIL_SENDER"))
     app.config.from_object(config[env])
     app.cli.add_command(usr_cli)
     update_celery(app, celery)

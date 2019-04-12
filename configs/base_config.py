@@ -58,12 +58,12 @@ class Config:
     MAIL_SERVER = "smtp.qq.com"
     MAIL_PORT = 465
     MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
     MAIL_USERNAME = "fjl2401@qq.com"
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     EMAIL_LIST = ["fjl2401@163.com", "826077013@qq.com", "441070584@qq.com"]
     SECRET_KEY = "hard to guess"
     MAIL_SENDER = "fjl2401@qq.com"
-    MAIL_USE_SSL = True
 
     # crawler begin page
     NO_MAIN_PAGE_URL = "http://93.91p26.space/v.php?next=watch"

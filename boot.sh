@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 function run() {
-   gunicorn -b  0.0.0.0:5000 --access-logfile - --error-logfile - run:app
-
+   source ./.env
+   gunicorn -c gunicorn.py run:jsamine_app
 }
 
 function deploy() {
